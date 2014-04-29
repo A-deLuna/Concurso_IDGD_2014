@@ -3,8 +3,9 @@ require "player"
 require "enemy"
 function love.load()
 	player.load()
-	screenWidth = love.window.getWidth()
-	screenHeight = love.window.getHeight()
+	screenWidth = love.graphics.getWidth()
+	screenHeight = love.graphics.getHeight()
+	
 end
 function love.update(dt)
 	 PLAYER_UPDATE(dt)
