@@ -14,7 +14,7 @@ enemy.totalTime = 0
 
 function enemy.spawn (x , y, enemType)
 	if enemType == enemy.easy then 
-		table.insert(enemy, {x = x, y = y, hp = 2, enemType = enemType, enemy.height, enemy.width, enemy.speed })
+		table.insert(enemy, {x = x, y = y, hp = 1, enemType = enemType, enemy.height, enemy.width, enemy.speed })
 	end 
 	if enemType == enemy.medium then 
 		table.insert(enemy, {x = x, y = y, hp = 3, enemType = enemType, enemy.height, enemy.width, enemy.speed  + 10})
@@ -36,14 +36,16 @@ function enemy.generate(dt)
 				enemy.spawn ( screenWidth /2 - enemy.width, screenHeight, enemy.type)
 			end
 			enemy.side = love.math.random(1,4)
-			if enemy.totalTime > 100 then 
-			enemy.type = love.math.random(1,2)
+			
+		
 		end 
-		end 
-		enemy.amount = love.math.random(2,5)
+		enemy.amount = love.math.random(2,4)
 		enemy.timerLimit = love.math.random(2,4)
 		enemy.timer = 0
-
+		----aumento de dificultad
+			if enemy.totalTime > 50 then 
+			enemy.type = love.math.random(1,2)
+			end 
 	end 
 
 	
@@ -77,7 +79,7 @@ function enemy.draw()
 	end 
 end 
 
- 
+
 function ENEMY_UPDATE(dt)
 	enemy.generate(dt)
 	enemy.AI(dt)
