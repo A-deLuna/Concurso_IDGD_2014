@@ -1,6 +1,8 @@
 bullet = {}
 bullet.speed = 600
 bullet.radius = 5
+bullet.timer = 0
+bullet.type = {{fireRate = 0.25}} 
 
 function bullet.spawn(x, y, angle)
 	table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle)} )
@@ -36,15 +38,30 @@ function bullet.collition()
 	end 
 end  
 
+
+
 function BULLET_UPDATE(dt)
 	bullet.update(dt)
 	bullet.collition()
+	bullet.shoot(dt)
 end 
 
 function BULLET_DRAW()
 	bullet.draw()
 end 
-
+function bullet.shoot(dt)
+	if  bullet.timer > bullet.type[1].fireRate then 
+		if love.mouse.isDown("l") then 
+			local x = love.mouse.getX()
+			local y = love.mouse.getY()
+			local angle = math.atan2(y - player.y, x - player.x)
+			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle)
+			bullet.timer = 0			
+		end 
+	end
+	bullet.timer = bullet.timer + dt
+end 
+--[[
 function love.mousepressed(x, y, button)
 	--while love.mouse.isDown(button)	do
 		if button == "l" then 
@@ -56,3 +73,4 @@ function love.mousepressed(x, y, button)
 		end 
 	--end 
 end 
+--]] 

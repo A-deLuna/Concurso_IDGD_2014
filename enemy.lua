@@ -1,7 +1,7 @@
 enemy = {}
 enemy.height = 30
 enemy.width = 30
-enemy.speed = 150
+enemy.speed = 120
 enemy.timer = 0
 enemy.timerLimit = love.math.random(2,4)
 enemy.amount = love.math.random(2,5)
@@ -11,6 +11,7 @@ enemy.easy = 1
 enemy.medium = 2
 enemy.hard = 3
 enemy.totalTime = 0
+enemy.distance = 20
 
 function enemy.spawn (x , y, enemType)
 	if enemType == enemy.easy then 
@@ -43,12 +44,10 @@ function enemy.generate(dt)
 		enemy.timerLimit = love.math.random(2,4)
 		enemy.timer = 0
 		----aumento de dificultad
-			if enemy.totalTime > 50 then 
-			enemy.type = love.math.random(1,2)
-			end 
+		if enemy.totalTime > 50 then 
+		enemy.type = love.math.random(1,2)
+		end 
 	end 
-
-	
 end
 
 function enemy.AI(dt)
@@ -66,6 +65,21 @@ function enemy.AI(dt)
 	end  
 end  
 
+function enemy.overlapping() 
+	for i, v in ipairs (enemy) do 
+		for j, k in ipairs(enemy) do 
+			if v ~= k then 
+				if ((v.x + enemy.width/2) - (k.x + enemy.width/2))^2 + ((v.y + enemy.height/2) - (k.y + enemy.height/2))^2  < enemy.distance ^ 2 then 
+					v.x = v.x + 15
+					v.y = v.y + 15
+					k.x = k.x - 15
+					k.y = k.y - 15
+					
+				end 
+			end 
+		end 
+	end 
+end 
 
 function enemy.draw() 
 	for i, v in ipairs(enemy) do 
@@ -83,6 +97,7 @@ end
 function ENEMY_UPDATE(dt)
 	enemy.generate(dt)
 	enemy.AI(dt)
+	enemy.overlapping()
 end 
 
 function ENEMY_DRAW()
