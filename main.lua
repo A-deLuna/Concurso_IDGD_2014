@@ -24,6 +24,9 @@ function love.update(dt)
 	 ENEMY_UPDATE(dt)
 	 BULLET_UPDATE(dt)
 	 GAMEPAD_UPDATE()
+	if player.hp == 0 then 
+		reset()
+	end
 	end
 	for i, j in pairs(gpads) do
 		if(pausetimer>=.1) then
@@ -39,7 +42,6 @@ function love.update(dt)
 		    pausetimer= pausetimer+ dt
 		end
 	end
-
 end
 
 function love.keypressed(key, isrepeat)
@@ -52,10 +54,14 @@ function love.keypressed(key, isrepeat)
 	end
 
 	if key == "r" then
-		love.load()
-		for i, j in ipairs(enemy) do
-			enemy[i] = nil
-		end
+		reset()
+	end
+end
+
+function reset()
+	love.load()
+	for i, j in ipairs(enemy) do
+		enemy[i] = nil
 	end
 end
 

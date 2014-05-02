@@ -11,6 +11,7 @@ function player.load()
 	player.hpIcon = love.graphics.newImage("img/lives.jpg")
 	player.invTimer = 2
 	player.inv = 2
+	player.invincible = false
 end
 
 function player.draw()
@@ -18,7 +19,6 @@ function player.draw()
 		love.graphics.setColor(255,0,0)
 		love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
 	end
-	love.graphics.print(player.invTimer,10,80)
 end	
 
 function player.movement(dt)
@@ -52,15 +52,15 @@ end
 function player.enemyColission(dt)
 	if(player.invTimer >= player.inv) then
 		for i, v in ipairs (enemy) do 
-			if ((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y and player.y<v.y+enemy.height)) or 
+			if (((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y and player.y<v.y+enemy.height)) or 
 			((v.x < player.x+player.width and player.x+player.width<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height)) or 
 			((v.x < player.x+player.width and player.x+player.width<v.x+enemy.width) and (v.y < player.y and player.y<v.y+enemy.height)) or 
-			((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height)) then 
+			((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height))) and not player.invincible then 
 				
 					player.hp = player.hp -1
 					player.invTimer = 0
 					table.remove(enemy, i)
-				
+					player.invincible = true
 
 			end 
 		end
@@ -71,11 +71,11 @@ function player.enemyColission(dt)
 end 
 function player.drawHealthPoints()
 	love.graphics.setColor(0,176,0)
-	love.graphics.print( "Lives:",0, 0, 0, 1, 1, 0, 0, 0, 0)
+	love.graphics.print( "Lives:",10, 10, 0, 1, 1, 0, 0, 0, 0)
 	i = 0
 	while  i  < player.hp do 
 		love.graphics.setColor(255,255,255)
-		love.graphics.draw(player.hpIcon,i * 50, 20, 0, .2, .2, 0, 0, 0, 0)
+		love.graphics.draw(player.hpIcon,i * 50 + 10, 30, 0, .2, .2, 0, 0, 0, 0)
 		 i = i + 1
 	end 
 end 
@@ -90,4 +90,7 @@ function PLAYER_UPDATE(dt)
 	player.movement(dt)
 	player.screenBound()
 	player.enemyColission(dt)
+	if player.invTimer >= player.inv then
+		player.invincible = false
+	end
 end 
