@@ -57,20 +57,11 @@ function bullet.shoot(dt)
 			local angle = math.atan2(y - player.y, x - player.x)
 			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle)
 			bullet.timer = 0			
-		end 
+		elseif (gamepad.rx ~= 0 and gamepad.ry ~= 0) then
+			local gpadangle = math.atan2(gamepad.ry, gamepad.rx)
+			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,gpadangle)
+			bullet.timer=0
+		end
 	end
 	bullet.timer = bullet.timer + dt
 end 
---[[
-function love.mousepressed(x, y, button)
-	--while love.mouse.isDown(button)	do
-		if button == "l" then 
-			local x = x
-			local y = y 
-			local angle = math.atan2(y - player.y, x - player.x)
-
-			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle)
-		end 
-	--end 
-end 
---]] 

@@ -4,7 +4,7 @@ function love.conf(t)
     t.console = false
 
     t.window.title = "Juego IDGD Alpha"
-    t.window.icon = "img/icon/icon.gif"
+    t.window.icon = "img/icon/icon.png"
     t.window.width = 800
     t.window.height = 600
     t.window.borderless = false
