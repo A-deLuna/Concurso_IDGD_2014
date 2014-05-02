@@ -9,11 +9,16 @@ function player.load()
 	player.hp = 3
 	player.hitbox = 15 
 	player.hpIcon = love.graphics.newImage("img/lives.jpg")
+	player.invTimer = 2
+	player.inv = 2
 end
 
 function player.draw()
-	love.graphics.setColor(255,0,0)
-	love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+	if player.invTimer>=player.inv or (player.invTimer*100-((player.invTimer*100)%1)) % 2 == 0 then
+		love.graphics.setColor(255,0,0)
+		love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+	end
+	love.graphics.print(player.invTimer,10,80)
 end	
 
 function player.movement(dt)
@@ -44,19 +49,30 @@ function player.screenBound()
 		player.y = screenHeight - player.height
 	end 
 end
-function player.enemyColission()
-	for i, v in ipairs (enemy) do 
-		if ((v.x + enemy.width / 2) - (player.x - player.width / 2)) ^ 2 + 
-			((v.y + enemy.width/2) - (player.y + player.width/2 )) ^ 2 < player.hitbox ^ 2 then 
-			player.hp = player.hp -1
-		end 
+function player.enemyColission(dt)
+	if(player.invTimer >= player.inv) then
+		for i, v in ipairs (enemy) do 
+			if ((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y and player.y<v.y+enemy.height)) or 
+			((v.x < player.x+player.width and player.x+player.width<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height)) or 
+			((v.x < player.x+player.width and player.x+player.width<v.x+enemy.width) and (v.y < player.y and player.y<v.y+enemy.height)) or 
+			((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height)) then 
+				
+					player.hp = player.hp -1
+					player.invTimer = 0
+					table.remove(enemy, i)
+				
 
-	end 
+			end 
+		end
+	end
+	if(player.invTimer < player.inv) then 
+		player.invTimer = player.invTimer + (player.inv/2)*dt
+	end
 end 
 function player.drawHealthPoints()
 	love.graphics.setColor(0,176,0)
 	love.graphics.print( "Lives:",0, 0, 0, 1, 1, 0, 0, 0, 0)
-	i = 1
+	i = 0
 	while  i  < player.hp do 
 		love.graphics.setColor(255,255,255)
 		love.graphics.draw(player.hpIcon,i * 50, 20, 0, .2, .2, 0, 0, 0, 0)
@@ -67,10 +83,11 @@ end
 function PLAYER_DRAW()
 	player.draw()
 	player.drawHealthPoints()
-	player.enemyColission()
+	
 end 
 
 function PLAYER_UPDATE(dt)
 	player.movement(dt)
 	player.screenBound()
+	player.enemyColission(dt)
 end 
