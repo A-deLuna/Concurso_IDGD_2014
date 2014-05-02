@@ -30,11 +30,11 @@ function bullet.collition()
 			((v.x < q.x+bullet.radius and q.x+bullet.radius<v.x+enemy.width) and (v.y < q.y-bullet.radius and q.y-bullet.radius<v.y+enemy.height)) or 
 			((v.x < q.x-bullet.radius and q.x-bullet.radius<v.x+enemy.width) and (v.y < q.y+bullet.radius and q.y+bullet.radius<v.y+enemy.height)) then 
 				v.hp = v.hp - 1 
-				if ( v.hp == 0) then 
+				if ( v.hp < 1) then 
 					table.remove(enemy, i)
 				end 
+				explosion.spawn(q.x, q.y)
 				table.remove(bullet, n)
-
 			end  
 		end 
 	end 

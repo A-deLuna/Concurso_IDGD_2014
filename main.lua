@@ -3,6 +3,7 @@ require "player"
 require "enemy"
 require "bullet"
 require "gamepad"
+require "explosion"
 
 function love.load()
 	player.load()
@@ -17,7 +18,6 @@ function love.load()
 	pause = false
 	pausetimer = .1
 
-	testb = false
 end
 
 function love.update(dt)
@@ -44,9 +44,7 @@ function love.update(dt)
 		    pausetimer= pausetimer+ dt
 		end
 	end
-	if dt % 1000 then
-		testb=false
-	end
+	explosion.update(dt)
 end
 
 function love.keypressed(key, isrepeat)
@@ -78,15 +76,8 @@ function love.draw()
 	num = -enemy.width
 	while num < screenHeight do
 		for a, b in ipairs(enemy) do
-
 			if b.y > num-1 and b.y<=num then
 				drawIndivEnemy(b)
-			end
-			if not testb then
-				love.graphics.print(num,100,100)
-				love.graphics.print(b.y,200,100)
-				love.graphics.print(screenHeight,600,100)
-				testb = true
 			end
 		end
 		num=num+1
@@ -95,4 +86,6 @@ function love.draw()
 	PLAYER_DRAW()
 
 	player.drawHealthPoints()
+
+	explosion.draw()
 end
