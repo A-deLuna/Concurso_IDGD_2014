@@ -77,13 +77,11 @@ function player.drawHealthPoints()
 		love.graphics.setColor(255,255,255)
 		love.graphics.draw(player.hpIcon,i * 50 + 10, 30, 0, .2, .2, 0, 0, 0, 0)
 		 i = i + 1
-	end 
+	end
 end 
 
 function PLAYER_DRAW()
 	player.draw()
-	player.drawHealthPoints()
-	
 end 
 
 function PLAYER_UPDATE(dt)
