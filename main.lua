@@ -7,20 +7,60 @@ require "gamepad"
 function love.load()
 	player.load()
 	gamepad.load()
-	
+	enemy.load()
+
 	screenWidth = love.graphics.getWidth()
 	screenHeight = love.graphics.getHeight()
 	
 	love.graphics.setFont(love.graphics.newFont(15))
+
+	pause = false
+	pausetimer = .1
 end
+
 function love.update(dt)
+	if(not pause) then
 	 PLAYER_UPDATE(dt)
 	 ENEMY_UPDATE(dt)
 	 BULLET_UPDATE(dt)
 	 GAMEPAD_UPDATE()
-	 end
-	 function love.draw()
-	 	PLAYER_DRAW()
-	 	ENEMY_DRAW()
+	end
+	for i, j in pairs(gpads) do
+		if(pausetimer>=.1) then
+			if j:isDown(10) then
+				if not pause then
+					pause=true
+				else
+					pause=false
+				end
+			end
+			pausetimer=0
+		else
+		    pausetimer= pausetimer+ dt
+		end
+	end
+
+end
+
+function love.keypressed(key, isrepeat)
+	if key == "p" then
+		if not pause then
+			pause=true
+		else
+			pause=false
+		end
+	end
+
+	if key == "r" then
+		love.load()
+		for i, j in ipairs(enemy) do
+			enemy[i] = nil
+		end
+	end
+end
+
+function love.draw()
+	PLAYER_DRAW()
+	ENEMY_DRAW()
 	BULLET_DRAW()	
 end

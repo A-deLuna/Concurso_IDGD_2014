@@ -1,17 +1,19 @@
 enemy = {}
-enemy.height = 30
-enemy.width = 30
-enemy.speed = 120
-enemy.timer = 0
-enemy.timerLimit = love.math.random(2,4)
-enemy.amount = love.math.random(2,5)
-enemy.side = love.math.random(1,4)
-enemy.type = 1
-enemy.easy = 1
-enemy.medium = 2
-enemy.hard = 3
-enemy.totalTime = 0
-enemy.distance = 40
+function enemy.load()
+	enemy.height = 30
+	enemy.width = 30
+	enemy.speed = 120
+	enemy.timer = 0
+	enemy.timerLimit = love.math.random(2,4)
+	enemy.amount = love.math.random(2,5)
+	enemy.side = love.math.random(1,4)
+	enemy.type = 1
+	enemy.easy = 1
+	enemy.medium = 2
+	enemy.hard = 3
+	enemy.totalTime = 0
+	enemy.distance = 40
+end
 
 function enemy.spawn (x , y, enemType, speed)
 	if enemType == enemy.easy then 
