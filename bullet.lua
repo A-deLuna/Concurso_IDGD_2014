@@ -25,14 +25,16 @@ end
 function bullet.collition()
 	for i, v in ipairs(enemy) do 
 		for n, q in ipairs (bullet ) do 
-			local dist  = math.sqrt((v.y - q.y)^2 + (v.x - q.x)^2)
-			if (dist < bullet.radius + player.width) then 
+			if ((v.x < q.x-bullet.radius and q.x-bullet.radius<v.x+enemy.width) and (v.y < q.y-bullet.radius and q.y-bullet.radius<v.y+enemy.height)) or 
+			((v.x < q.x+bullet.radius and q.x+bullet.radius <v.x+enemy.width) and (v.y < q.y+bullet.radius and q.y+bullet.radius+player.height<v.y+enemy.height)) or 
+			((v.x < q.x+bullet.radius and q.x+bullet.radius<v.x+enemy.width) and (v.y < q.y-bullet.radius and q.y-bullet.radius<v.y+enemy.height)) or 
+			((v.x < q.x-bullet.radius and q.x-bullet.radius<v.x+enemy.width) and (v.y < q.y+bullet.radius and q.y+bullet.radius<v.y+enemy.height)) then 
 				v.hp = v.hp - 1 
-				if ( v.hp == 0) then 
+				if ( v.hp < 1) then 
 					table.remove(enemy, i)
 				end 
+				explosion.spawn(q.x, q.y)
 				table.remove(bullet, n)
-
 			end  
 		end 
 	end 
