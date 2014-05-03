@@ -80,12 +80,11 @@ function love.draw()
 				drawIndivEnemy(b)
 			end
 		end
+		if player.y>num-1 and player.y<=num then 
+			PLAYER_DRAW()	
+		end
 		num=num+1
 	end
-
-	PLAYER_DRAW()
-
-	player.drawHealthPoints()
-
 	explosion.draw()
+	player.drawHealthPoints()
 end

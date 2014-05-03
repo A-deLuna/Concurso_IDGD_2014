@@ -93,20 +93,7 @@ function enemy.overlapping()
 	end 
 end 
 
-function enemy.draw() 
-	for i, v in ipairs(enemy) do 
-		if v.enemType == enemy.easy	then 
-			love.graphics.setColor(255,255,255)
-			love.graphics.rectangle("fill",v.x,v.y,enemy.width,enemy.height)
-		elseif v.enemType == enemy.medium then
-			love.graphics.setColor(0,0,255)
-			love.graphics.rectangle("fill",v.x,v.y,enemy.width,enemy.height)
-		end 
-	end 
-end
-
 function drawIndivEnemy(self)
-	love.graphics.print("test",100,100)
 	if self.enemType == enemy.easy	then 
 		love.graphics.setColor(0,love.math.random(255),0)
 		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
@@ -125,4 +112,3 @@ end
 function ENEMY_DRAW()
 	enemy.draw()
 end
- 

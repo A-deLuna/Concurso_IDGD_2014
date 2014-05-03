@@ -36,12 +36,6 @@ function explosion.draw()
 	for i,v in ipairs(explosion) do 
 		explosionDraw(v)
 	end
-	for p,q in ipairs(explosion) do
-		for i,v in ipairs(enemy) do 
-			love.graphics.print(math.sqrt(((v.x-q.x)^2)+((v.y-q.y)^2)),50,200)
-		end 
-		love.graphics.print(math.sqrt(math.pow(player.x-q.x, 2)+math.pow(player.y-q.y,2)),50,400)
-	end
 end
 
 function explosion.collision()

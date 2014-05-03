@@ -12,6 +12,8 @@ function player.load()
 	player.invTimer = 2
 	player.inv = 2
 	player.invincible = false
+	player.bullettype=0
+	player.ammo=0
 end
 
 function player.draw()
@@ -90,5 +92,8 @@ function PLAYER_UPDATE(dt)
 	player.enemyColission(dt)
 	if player.invTimer >= player.inv then
 		player.invincible = false
+	end
+	if player.ammo == 0 then
+		player.bullettype = 0
 	end
 end 
