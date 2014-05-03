@@ -42,6 +42,7 @@ function explosion.collision()
 	for p,q in ipairs(explosion) do
 		for i,v in ipairs(enemy) do 
 			if math.sqrt((((v.x+enemy.width/2)-q.x)^2)+(((v.x+enemy.height/2)-q.y)^2))<(enemy.width/2)+q.indivRadius then 
+				powerup.spawn(v.x, v.y)
 				table.remove(enemy, i)
 			end 
 		end 

@@ -1,4 +1,4 @@
-
+require "powerup"
 require "player"
 require "enemy"
 require "bullet"
@@ -85,6 +85,8 @@ function love.draw()
 		end
 		num=num+1
 	end
+	powerup.draw()
 	explosion.draw()
 	player.drawHealthPoints()
+
 end
