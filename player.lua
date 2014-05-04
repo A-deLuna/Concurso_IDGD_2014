@@ -14,6 +14,7 @@ function player.load()
 	player.invincible = false
 	player.bullettype=0
 	player.ammo=0
+	player.angle= math.pi/2
 end
 
 function player.draw()
@@ -25,19 +26,49 @@ end
 
 function player.movement(dt)
 	if love.keyboard.isDown("w") then 
-		player.y = player.y - player.speed * dt 
+		player.y = player.y - player.speed * dt
+		angley=3*math.pi/4
 	elseif love.keyboard.isDown("s") then 
 		player.y = player.y + player.speed * dt
+		angley=math.pi/2
 	else
 	  	player.y = player.y + (player.speed*gamepad.ly) * dt
+	  	angley=gamepad.ly
 	end
 	if love.keyboard.isDown("a") then
 		player.x = player.x - player.speed * dt 
+		anglex=math.pi
 	elseif love.keyboard.isDown("d") then
 		player.x = player.x + player.speed * dt 
+		anglex=0
 	else
 		player.x = player.x + (player.speed*gamepad.lx) * dt
+		anglex=gamepad.lx
 	end
+	player.angle=math.tan(angley,anglex)
+end
+
+function player.angleUpdate()
+	if love.keyboard.isDown("w") then
+		angley=3*math.pi/2
+	end
+	if love.keyboard.isDown("s") then 
+		angley=math.pi/2
+	end
+	if gamepad.ly ~= 0  then
+	  	angley=gamepad.ly
+	end
+	if love.keyboard.isDown("a") then
+		anglex=math.pi
+	end
+	if love.keyboard.isDown("d") then
+
+		anglex=0
+	end
+	if gamepad.lx ~= 0 then
+		anglex=gamepad.lx
+	end
+	player.angle=math.atan2(angley,anglex)
 end 
 
 function player.screenBound()
@@ -96,4 +127,5 @@ function PLAYER_UPDATE(dt)
 	if player.ammo == 0 then
 		player.bullettype = 0
 	end
+	player.angleUpdate()
 end 
