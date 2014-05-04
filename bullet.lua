@@ -4,10 +4,12 @@ bullet.radius = 5
 bullet.timer = 0
 bullet.type = {{fireRate = 0.25}} 
 
-function bullet.spawn(x, y, angle)
-	table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=player.bullettype, angle=angle} )
-	if player.bullettype~=0 then
-		player.ammo=player.ammo-1
+function bullet.spawn(x, y, angle,type)
+	if type==0 or player.ammo>0 then
+		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=type, angle=angle} )
+		if type~=0 then
+			player.ammo=player.ammo-1
+		end
 	end
 end 
 
@@ -69,15 +71,21 @@ function BULLET_DRAW()
 end 
 function bullet.shoot(dt)
 	if  bullet.timer > bullet.type[1].fireRate then 
-		if love.mouse.isDown("l") then 
+		if love.mouse.isDown("l") or love.mouse.isDown("r") then 
 			local x = love.mouse.getX()
 			local y = love.mouse.getY()
 			local angle = math.atan2(y - player.y, x - player.x)
-			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle)
+			if love.mouse.isDown("l") then type = 0 else type = 1 end
+			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle,type)
 			bullet.timer = 0			
-		elseif (gamepad.rx ~= 0 and gamepad.ry ~= 0) then
-			local gpadangle = math.atan2(gamepad.ry, gamepad.rx)
-			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,gpadangle)
+		elseif gamepad.isDown[7] or gamepad.isDown[8] then
+			if (gamepad.rx ~= 0 and gamepad.ry ~= 0) then
+			 	gpadangle = math.atan2(gamepad.ry, gamepad.rx)
+			else
+			    gpadangle = player.angle
+			end
+			if gamepad.isDown[8] then type = 0 else type = 1 end
+			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,gpadangle,type)
 			bullet.timer=0
 		end
 	end

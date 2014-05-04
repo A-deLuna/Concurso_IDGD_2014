@@ -1,4 +1,4 @@
-powerup = {}
+powerup={}
 
 function powerup.draw()
 	for i, v in ipairs(powerup) do 

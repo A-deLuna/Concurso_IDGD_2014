@@ -67,6 +67,12 @@ function reset()
 	for i, j in ipairs(enemy) do
 		enemy[i] = nil
 	end
+	for i, j in ipairs(powerup) do
+		powerup[i] = nil
+	end
+	for i, j in ipairs(bullet) do
+		bullet[i] = nil
+	end
 end
 
 function love.draw()
@@ -94,4 +100,5 @@ function love.draw()
 		love.graphics.setColor(255,255,255)
 		love.graphics.print(player.ammo, screenWidth-50, 10)
 	end
+	gamepad.debug()
 end
