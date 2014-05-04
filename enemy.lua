@@ -27,17 +27,39 @@ end
 function enemy.generate(dt)
 	enemy.timer = enemy.timer + dt
 	enemy.totalTime = enemy.totalTime + dt
+	
 	if enemy.timer > enemy.timerLimit then 
 		for i = 1, enemy.amount do
 			if enemy.side == 1 then 
-				enemy.spawn(0-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
+				if enemy.lastSide == 1 then 
+					enemy.spawn(-10-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
+				else 
+					enemy.spawn(0-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
+				end 
+				enemy.lastSide = 1 
 			elseif enemy.side == 2 then 
-				enemy.spawn(screenWidth /2 - enemy.width, 0-enemy.height, enemy.type, enemy.speed)
+				if enemy.lastSide == 2 then 
+					enemy.spawn(screenWidth /2 - enemy.width, -10-enemy.height, enemy.type, enemy.speed)
+				else 
+					enemy.spawn(screenWidth /2 - enemy.width, 0-enemy.height, enemy.type, enemy.speed)
+				end 
+				lastSide = 2 
 			elseif enemy.side == 3 then 
-				enemy.spawn(screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
+				if enemy.lastSide == 3 then 
+					enemy.spawn(10 + screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
+				else 
+					enemy.spawn(screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
+				end 
+				lastSide = 3 
 			elseif enemy.side == 4 then
-				enemy.spawn ( screenWidth /2 - enemy.width, screenHeight, enemy.type, enemy.speed)
+				if enemy.lastSide == 4 then 
+					enemy.spawn ( screenWidth /2 - enemy.width, 10 + screenHeight, enemy.type, enemy.speed)
+				else 
+					enemy.spawn ( screenWidth /2 - enemy.width, screenHeight, enemy.type, enemy.speed)
+				end 
+				lastSide = 4 
 			end
+
 			enemy.side = love.math.random(1,4)
 			
 		
@@ -51,6 +73,7 @@ function enemy.generate(dt)
 		end 
 	end 
 end
+
 
 function enemy.AI(dt)
 	for i, v in ipairs (enemy) do
