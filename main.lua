@@ -22,13 +22,14 @@ end
 
 function love.update(dt)
 	if(not pause) then
-	 PLAYER_UPDATE(dt)
-	 ENEMY_UPDATE(dt)
-	 BULLET_UPDATE(dt)
-	 GAMEPAD_UPDATE()
-	if player.hp == 0 then 
-		reset()
-	end
+		PLAYER_UPDATE(dt)
+		ENEMY_UPDATE(dt)
+		BULLET_UPDATE(dt)
+		GAMEPAD_UPDATE()
+		POWERUP_UPDATE()
+		if player.hp == 0 then 
+			reset()
+		end
 	end
 	for i, j in pairs(gpads) do
 		if(pausetimer>=.1) then
@@ -89,4 +90,8 @@ function love.draw()
 	explosion.draw()
 	player.drawHealthPoints()
 
+	if player.ammo ~= 0 then
+		love.graphics.setColor(255,255,255)
+		love.graphics.print(player.ammo, screenWidth-50, 10)
+	end
 end

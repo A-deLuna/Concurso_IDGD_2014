@@ -5,7 +5,7 @@ bullet.timer = 0
 bullet.type = {{fireRate = 0.25}} 
 
 function bullet.spawn(x, y, angle)
-	table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=player.bullettype} )
+	table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=player.bullettype, angle=angle} )
 	if player.bullettype~=0 then
 		player.ammo=player.ammo-1
 	end
@@ -15,7 +15,7 @@ function bullet.draw()
 	for i,v in ipairs(bullet) do 
 		if v.type==1 then
 			love.graphics.setColor(255,178,0)
-			
+			love.graphics.circle("fill", v.x , v.y , bullet.radius, 10)
 		else
 			love.graphics.setColor(225,225,225)
 			love.graphics.circle("fill", v.x , v.y , bullet.radius, 10)
