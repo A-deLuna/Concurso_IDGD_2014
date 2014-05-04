@@ -13,6 +13,8 @@ function enemy.load()
 	enemy.hard = 3
 	enemy.totalTime = 0
 	enemy.distance = 40
+	enemy.lastSide = 0
+	enemy.spawnRepetitions = 0
 end
 
 function enemy.spawn (x , y, enemType, speed)
@@ -32,32 +34,40 @@ function enemy.generate(dt)
 		for i = 1, enemy.amount do
 			if enemy.side == 1 then 
 				if enemy.lastSide == 1 then 
-					enemy.spawn(-10-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
+					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+					enemy.spawn(0-enemy.width,screenHeight / 2 + 30 * enemy.spawnRepetitions, enemy.type, enemy.speed)
 				else 
+					enemy.spawnRepetitions = 0
 					enemy.spawn(0-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
 				end 
 				enemy.lastSide = 1 
 			elseif enemy.side == 2 then 
 				if enemy.lastSide == 2 then 
-					enemy.spawn(screenWidth /2 - enemy.width, -10-enemy.height, enemy.type, enemy.speed)
+					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+					enemy.spawn(screenWidth /2 + 30 * enemy.spawnRepetitions- enemy.width, -enemy.height, enemy.type, enemy.speed)
 				else 
+					enemy.spawnRepetitions = 0
 					enemy.spawn(screenWidth /2 - enemy.width, 0-enemy.height, enemy.type, enemy.speed)
 				end 
-				lastSide = 2 
+				enemy.lastSide = 2 
 			elseif enemy.side == 3 then 
 				if enemy.lastSide == 3 then 
-					enemy.spawn(10 + screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
+					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+					enemy.spawn( screenWidth, screenHeight / 2  + 30 * enemy.spawnRepetitions - enemy.height, enemy.type, enemy.speed)
 				else 
+					enemy.spawnRepetitions = 0
 					enemy.spawn(screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
 				end 
-				lastSide = 3 
+				enemy.lastSide = 3 
 			elseif enemy.side == 4 then
 				if enemy.lastSide == 4 then 
-					enemy.spawn ( screenWidth /2 - enemy.width, 10 + screenHeight, enemy.type, enemy.speed)
+					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+					enemy.spawn ( screenWidth /2 + 30 * enemy.spawnRepetitions,  screenHeight, enemy.type, enemy.speed)
 				else 
-					enemy.spawn ( screenWidth /2 - enemy.width, screenHeight, enemy.type, enemy.speed)
+					enemy.spawn ( screenWidth /2 , screenHeight, enemy.type, enemy.speed)
+					enemy.spawnRepetitions = 0
 				end 
-				lastSide = 4 
+				enemy.lastSide = 4 
 			end
 
 			enemy.side = love.math.random(1,4)
