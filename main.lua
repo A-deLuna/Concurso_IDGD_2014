@@ -6,7 +6,6 @@ require "gamepad"
 require "explosion"
 require "AnAL"
 require "enemBullet"
-require "TEsound"
 
 function love.load()
 	player.load()
@@ -28,8 +27,11 @@ function love.load()
 	pausetimer = .1
 
 	piu = love.audio.newSource("sound/piu.mp3", "static")
+	piu:setVolume(1.0)
 	boom = love.audio.newSource("sound/boom.mp3", "static")
+	boom:setVolume(1.0)
 	music = love.audio.newSource("sound/music.mp3")
+	music:setVolume(0.3)
 end
 
 function love.update(dt)
