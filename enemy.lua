@@ -2,7 +2,7 @@ enemy = {}
 function enemy.load()
 	enemy.height = 30
 	enemy.width = 30
-	enemy.speed = 120
+	enemy.speed = 100
 	enemy.timer = 0
 	enemy.timerLimit = love.math.random(2,4)
 	enemy.amount = love.math.random(2,5)
@@ -22,7 +22,7 @@ function enemy.spawn (x , y, enemType, speed)
 		table.insert(enemy, {x = x, y = y, hp = 1, enemType = enemType, enemy.height, enemy.width, speed=speed, flag=false})
 	end 
 	if enemType == enemy.medium then 
-		table.insert(enemy, {x = x, y = y, hp = 3, enemType = enemType, enemy.height, enemy.width, speed=speed  - 40, flag=false})
+		table.insert(enemy, {x = x, y = y, hp = 3, enemType = enemType, enemy.height, enemy.width, speed=speed  - 50, flag=false})
 	end 
 end 
 
@@ -117,7 +117,7 @@ function enemy.overlapping()
 					--k.x = v.x - enemy.width
 					--k.y = v.y - enemy.width
 					if not v.flag and not k.flag then
-						v.speed=v.speed/2
+						v.speed=v.speed/100
 						k.flag = true
 					end
 				end

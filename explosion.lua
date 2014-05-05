@@ -1,6 +1,6 @@
 explosion = {}
-explosion.radius = 50
-explosion.timer = 1
+explosion.radius = 150
+explosion.timer = 3
 
 
 function explosion.spawn(x, y)
@@ -9,7 +9,7 @@ end
 
 function explosionUpdate(v, dt)
 	v.indivRadius = v.indivRadius + 50*dt
-	if v.time <= 1 then
+	if v.time <= explosion.timer then
 		v.time=v.time+dt
 	else
 	    v=nil
@@ -46,10 +46,10 @@ function explosion.collision()
 				table.remove(enemy, i)
 			end 
 		end 
-		if math.sqrt(math.pow((player.x+player.width/2)-q.x, 2)+math.pow((player.y+player.height/2)-q.y,2))<(player.width/2)+q.indivRadius and not player.invincible then 
-			player.hp = player.hp -1
-			player.invTimer = 0
-			player.invincible = true
+		--if math.sqrt(math.pow((player.x+player.width/2)-q.x, 2)+math.pow((player.y+player.height/2)-q.y,2))<(player.width/2)+q.indivRadius and not player.invincible then 
+		--	player.hp = player.hp -1
+		--	player.invTimer = 0
+		--	player.invincible = true
 		end 
 	end
 end
