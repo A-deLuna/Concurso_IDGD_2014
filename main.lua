@@ -6,6 +6,7 @@ require "gamepad"
 require "explosion"
 require "AnAL"
 require "enemBullet"
+require "TEsound"
 
 function love.load()
 	player.load()
@@ -28,9 +29,13 @@ function love.load()
 
 	piu = love.audio.newSource("sound/piu.mp3", "static")
 	boom = love.audio.newSource("sound/boom.mp3", "static")
+	music = love.audio.newSource("sound/music.mp3")
 end
 
 function love.update(dt)
+	if music:isStopped() then
+		music:play()
+	end
 	if(not pause) then
 		PLAYER_UPDATE(dt)
 		ENEMY_UPDATE(dt)
@@ -92,6 +97,7 @@ function reset()
 	for i, j in ipairs(bullet) do
 		bullet[i] = nil
 	end
+	music:stop()
 end
 
 function love.draw()
