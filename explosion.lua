@@ -43,13 +43,13 @@ function explosion.collision()
 		for i,v in ipairs(enemy) do 
 			if math.sqrt((((v.x+enemy.width/2)-q.x)^2)+(((v.x+enemy.height/2)-q.y)^2))<(enemy.width/2)+q.indivRadius then 
 				powerup.spawn(v.x, v.y)
-				table.remove(enemy, i)
+				enemy[i]=nil
 			end 
 		end 
-		if math.sqrt(math.pow((player.x+player.width/2)-q.x, 2)+math.pow((player.y+player.height/2)-q.y,2))<(player.width/2)+q.indivRadius and not player.invincible then 
-			player.hp = player.hp -1
-			player.invTimer = 0
-			player.invincible = true
-		end 
+		--if math.sqrt(math.pow((player.x+player.width/2)-q.x, 2)+math.pow((player.y+player.height/2)-q.y,2))<(player.width/2)+q.indivRadius and not player.invincible then 
+		--	player.hp = player.hp -1
+		--	player.invTimer = 0
+		--	player.invincible = true
+		--end 
 	end
 end

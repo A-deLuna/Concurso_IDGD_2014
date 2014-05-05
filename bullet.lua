@@ -77,7 +77,7 @@ function bullet.shoot(dt)
 			local angle = math.atan2(y - player.y, x - player.x)
 			if love.mouse.isDown("l") then type = 0 else type = 1 end
 			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle,type)
-			bullet.timer = 0			
+			bullet.timer = 0			 
 		elseif gamepad.isDown[7] or gamepad.isDown[8] then
 			if (gamepad.rx ~= 0 and gamepad.ry ~= 0) then
 			 	gpadangle = math.atan2(gamepad.ry, gamepad.rx)
