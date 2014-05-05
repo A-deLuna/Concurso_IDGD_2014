@@ -1,6 +1,6 @@
 explosion = {}
-explosion.radius = 50
-explosion.timer = 1
+explosion.radius = 200
+explosion.timer = .75
 
 
 function explosion.spawn(x, y)
@@ -8,8 +8,8 @@ function explosion.spawn(x, y)
 end
 
 function explosionUpdate(v, dt)
-	v.indivRadius = v.indivRadius + 50*dt
-	if v.time <= 1 then
+	v.indivRadius = v.indivRadius + explosion.radius*dt
+	if v.time <= explosion.timer then
 		v.time=v.time+dt
 	else
 	    v=nil
@@ -17,7 +17,7 @@ function explosionUpdate(v, dt)
 end
 
 function explosionDraw(v)
-	local colory=math.random(225)
+	local colory=math.random(175)+50
 	love.graphics.setColor(colory+30,colory,0)
 	love.graphics.circle("fill",v.x,v.y,v.indivRadius)
 end
@@ -43,7 +43,7 @@ function explosion.collision()
 		for i,v in ipairs(enemy) do 
 			if math.sqrt((((v.x+enemy.width/2)-q.x)^2)+(((v.x+enemy.height/2)-q.y)^2))<(enemy.width/2)+q.indivRadius then 
 				powerup.spawn(v.x, v.y)
-				enemy[i]=nil
+				table.remove(enemy, i)
 			end 
 		end 
 		--if math.sqrt(math.pow((player.x+player.width/2)-q.x, 2)+math.pow((player.y+player.height/2)-q.y,2))<(player.width/2)+q.indivRadius and not player.invincible then 
@@ -51,5 +51,6 @@ function explosion.collision()
 		--	player.invTimer = 0
 		--	player.invincible = true
 		--end 
+
 	end
 end
