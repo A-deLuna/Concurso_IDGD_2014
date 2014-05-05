@@ -126,6 +126,29 @@ function enemy.overlapping()
 	end 
 end 
 
+function enemy.debug()
+	for i, v in ipairs (enemy) do 
+		for j, k in ipairs(enemy) do 
+			if v ~= k then 
+				if ((v.x < k.x and k.x<v.x+enemy.width) and (v.y < k.y and k.y<v.y+enemy.height)) or 
+			((v.x < k.x+enemy.width and k.x+enemy.width<v.x+enemy.width) and (v.y < k.y+enemy.height and k.y+enemy.height<v.y+enemy.height)) or 
+			((v.x < k.x+enemy.width and k.x+enemy.width<v.x+enemy.width) and (v.y < k.y and k.y<v.y+enemy.height)) or 
+			((v.x < k.x and k.x<v.x+enemy.width) and (v.y < k.y+enemy.height and k.y+enemy.height<v.y+enemy.height)) then  
+					--v.x = k.x + enemy.width/2
+					--v.y = k.y + enemy.width/2
+					--k.x = v.x - enemy.width
+					--k.y = v.y - enemy.width
+					if k.flag then s="true" else s="false" end
+					love.graphics.print(s,10,screenHeight-50)
+					if v.flag then s="true" else s="false" end
+					love.graphics.print(s,10,screenHeight-20)
+				end
+			end 
+		end 
+	end 
+end
+
+
 function drawIndivEnemy(self)
 	if self.enemType == enemy.easy	then 
 		love.graphics.setColor(0,love.math.random(255),0)

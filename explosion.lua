@@ -1,6 +1,6 @@
 explosion = {}
-explosion.radius = 150
-explosion.timer = 3
+explosion.radius = 200
+explosion.timer = .75
 
 
 function explosion.spawn(x, y)
@@ -8,7 +8,7 @@ function explosion.spawn(x, y)
 end
 
 function explosionUpdate(v, dt)
-	v.indivRadius = v.indivRadius + 50*dt
+	v.indivRadius = v.indivRadius + explosion.radius*dt
 	if v.time <= explosion.timer then
 		v.time=v.time+dt
 	else
@@ -17,7 +17,7 @@ function explosionUpdate(v, dt)
 end
 
 function explosionDraw(v)
-	local colory=math.random(225)
+	local colory=math.random(175)+50
 	love.graphics.setColor(colory+30,colory,0)
 	love.graphics.circle("fill",v.x,v.y,v.indivRadius)
 end
@@ -50,6 +50,7 @@ function explosion.collision()
 		--	player.hp = player.hp -1
 		--	player.invTimer = 0
 		--	player.invincible = true
-		end 
+		--end 
+
 	end
 end

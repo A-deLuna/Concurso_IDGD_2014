@@ -100,5 +100,5 @@ function love.draw()
 		love.graphics.setColor(255,255,255)
 		love.graphics.print(player.ammo, screenWidth-50, 10)
 	end
-	gamepad.debug()
+	enemy.debug()
 end
