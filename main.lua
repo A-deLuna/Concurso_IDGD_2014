@@ -4,6 +4,7 @@ require "enemy"
 require "bullet"
 require "gamepad"
 require "explosion"
+require "AnAL"
 
 function love.load()
 	player.load()
@@ -16,6 +17,12 @@ function love.load()
 	love.graphics.setFont(love.graphics.newFont(15))
 
 	pause = false
+	pauseStrip=love.graphics.newImage("img/pause.png")
+	pauseScreen=newAnimation(pauseStrip, 173,45,0.1,0)
+	linesA=love.graphics.newImage("img/line.png")
+	linesAanim=newAnimation(linesA, 179,51,0.1,0)
+	linesB=love.graphics.newImage("img/linex.png")
+	linesBanim=newAnimation(linesB, 179,51,0.1,0)
 	pausetimer = .1
 
 end
@@ -30,7 +37,14 @@ function love.update(dt)
 		if player.hp == 0 then 
 			reset()
 		end
+	else
+		pauseScreen:update(dt)
+		linesAanim:update(dt)
+		linesBanim:update(dt)
 	end
+
+
+	
 	for i, j in pairs(gpads) do
 		if(pausetimer>=.1) then
 			if j:isDown(10) then
@@ -43,6 +57,7 @@ function love.update(dt)
 			pausetimer=0
 		else
 		    pausetimer= pausetimer+ dt
+
 		end
 	end
 	explosion.update(dt)
@@ -76,6 +91,11 @@ function reset()
 end
 
 function love.draw()
+	if pause then
+    pauseScreen:draw(screenWidth/2 - 100, 200)
+    linesAanim:draw(screenWidth/2 - 104, 198)
+    linesBanim:draw(screenWidth/2 - 104, 198)
+	end
 	
 	
 	BULLET_DRAW()
@@ -92,9 +112,11 @@ function love.draw()
 		end
 		num=num+1
 	end
+	player.score()
 	powerup.draw()
 	explosion.draw()
 	player.drawHealthPoints()
+
 
 	if player.ammo ~= 0 then
 		love.graphics.setColor(255,255,255)

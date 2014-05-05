@@ -15,6 +15,7 @@ function player.load()
 	player.bullettype=0
 	player.ammo=0
 	player.angle= math.pi/2
+	player.scoreValue=0
 end
 
 function player.draw()
@@ -113,6 +114,11 @@ function player.drawHealthPoints()
 	end
 end 
 
+function player.score()
+	love.graphics.setColor(0,176,0)
+	love.graphics.print("Score: ", love.graphics.getWidth()-200, 10, 0, 1, 1, 0, 0, 0, 0)
+	love.graphics.print(player.scoreValue, love.graphics.getWidth()-150,10,0,1,1,0,0,0,0)
+end
 function PLAYER_DRAW()
 	player.draw()
 end 

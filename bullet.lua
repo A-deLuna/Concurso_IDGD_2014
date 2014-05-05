@@ -53,6 +53,7 @@ function bullet.collition()
 				if ( v.hp < 1) then 
 					powerup.spawn(v.x,v.y)
 					table.remove(enemy, i)
+					player.scoreValue=player.scoreValue+100
 				end
 				-- AQUI ESTAN LOS TIPOS DE BALAS QUE SE VAN A LLAMAR
 				if q.type==1 then
