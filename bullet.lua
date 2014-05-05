@@ -9,7 +9,6 @@ function bullet.spawn(x, y, angle,type)
 		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle - math.pi/16), dy = bullet.speed * math.sin(angle - math.pi/16), type=0, angle=angle-math.pi/16, radius = bullet.radius} )
 		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=0, angle=angle, radius = bullet.radius} )
 		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle + math.pi/16), dy = bullet.speed * math.sin(angle + math.pi/16), type=0, angle=angle+math.pi/16, radius = bullet.radius} )
-		player.ammo=player.ammo-1
 	elseif type==3 then
 		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=type, angle=angle, radius = bullet.radius+5})
 	elseif type==0 or player.ammo>0 then
@@ -99,7 +98,7 @@ function bullet.shoot(dt)
 			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,angle,type)
 
 			bullet.timer = 0			 
-		
+			piu:play()
 		elseif gamepad.isDown[7] or gamepad.isDown[8] then
 			if (gamepad.rx ~= 0 and gamepad.ry ~= 0) then
 			 	gpadangle = math.atan2(gamepad.ry, gamepad.rx)
@@ -113,6 +112,7 @@ function bullet.shoot(dt)
 			end
 			bullet.spawn(player.x + player.width /2 ,player.y + player.height /2 ,gpadangle,type)
 			bullet.timer=0
+			piu:play()
 		end
 	end
 	bullet.timer = bullet.timer + dt

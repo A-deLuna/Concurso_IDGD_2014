@@ -83,6 +83,13 @@ function player.screenBound()
 		player.y = screenHeight - player.height
 	end 
 end
+
+function player.hurt()
+	player.hp = player.hp -1
+	player.invTimer = 0
+	player.invincible = true
+end
+
 function player.enemyColission(dt)
 	if(player.invTimer >= player.inv) then
 		for i, v in ipairs (enemy) do 
@@ -90,11 +97,10 @@ function player.enemyColission(dt)
 			((v.x < player.x+player.width and player.x+player.width<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height)) or 
 			((v.x < player.x+player.width and player.x+player.width<v.x+enemy.width) and (v.y < player.y and player.y<v.y+enemy.height)) or 
 			((v.x < player.x and player.x<v.x+enemy.width) and (v.y < player.y+player.height and player.y+player.height<v.y+enemy.height))) and not player.invincible then 
-				
-					player.hp = player.hp -1
-					player.invTimer = 0
+					player.hurt()
+					
 					table.remove(enemy, i)
-					player.invincible = true
+					
 
 			end 
 		end

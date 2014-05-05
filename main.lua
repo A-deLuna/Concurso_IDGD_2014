@@ -5,6 +5,7 @@ require "bullet"
 require "gamepad"
 require "explosion"
 require "AnAL"
+require "enemBullet"
 
 function love.load()
 	player.load()
@@ -25,6 +26,8 @@ function love.load()
 	linesBanim=newAnimation(linesB, 179,51,0.1,0)
 	pausetimer = .1
 
+	piu = love.audio.newSource("sound/piu.mp3", "static")
+	boom = love.audio.newSource("sound/boom.mp3", "static")
 end
 
 function love.update(dt)
@@ -34,7 +37,8 @@ function love.update(dt)
 		BULLET_UPDATE(dt)
 		GAMEPAD_UPDATE()
 		POWERUP_UPDATE()
-		if player.hp == 0 then 
+		ENEMBULLET_UPDATE(dt)
+		if player.hp < 1 then 
 			reset()
 		end
 	else
@@ -91,14 +95,8 @@ function reset()
 end
 
 function love.draw()
-	if pause then
-    pauseScreen:draw(screenWidth/2 - 100, 200)
-    linesAanim:draw(screenWidth/2 - 104, 198)
-    linesBanim:draw(screenWidth/2 - 104, 198)
-	end
-	
-	
 	BULLET_DRAW()
+	ENEMBULLET_DRAW()
 
 	num = -enemy.width
 	while num < screenHeight do
@@ -122,5 +120,10 @@ function love.draw()
 		love.graphics.setColor(255,255,255)
 		love.graphics.print(player.ammo, screenWidth-50, 10)
 	end
-	enemy.debug()
+		love.graphics.setColor(255,255,255)
+	if pause then
+	    pauseScreen:draw(screenWidth/2 - 100, 200)
+	    linesAanim:draw(screenWidth/2 - 104, 198)
+	    linesBanim:draw(screenWidth/2 - 104, 198)
+	end
 end
