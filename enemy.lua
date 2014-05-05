@@ -15,6 +15,8 @@ function enemy.load()
 	enemy.distance = 40
 	enemy.lastSide = 0
 	enemy.spawnRepetitions = 0
+	enemy.shootTime=50
+	enemy.tpTime=100
 end
 
 function enemy.spawn (x , y, enemType, speed)
@@ -23,7 +25,11 @@ function enemy.spawn (x , y, enemType, speed)
 	end 
 	if enemType == enemy.medium then 
 		table.insert(enemy, {x = x, y = y, hp = 3, enemType = enemType, enemy.height, enemy.width, speed=speed  - 50, flag=false})
-	end 
+	end
+	if enemType == enemy.hard then 
+		table.insert(enemy, {x = x, y = y, hp = 2, enemType = enemType, enemy.height, enemy.width, speed=speed  - 50, flag=false, indivTime=0, pastX=-48,pastY=-48})
+	end
+
 end 
 
 function enemy.generate(dt)
@@ -78,21 +84,38 @@ function enemy.generate(dt)
 		enemy.timerLimit = love.math.random(2,4)
 		enemy.timer = 0
 		----aumento de dificultad
+		if enemy.totalTime > 25 then 
+			enemy.type = love.math.random(1,2)
+		end 
+
 		if enemy.totalTime > 50 then 
-		enemy.type = love.math.random(1,2)
+			enemy.type = love.math.random(1,3)
+			if enemy.type==3 then enemy.amount = 1 end
 		end 
 	end 
 end
 
-
 function enemy.AI(dt)
 	for i, v in ipairs (enemy) do
-		if v.x > player.x then 
+		if v.enemType == 3 then
+			if v.indivTime > enemy.tpTime then 
+				v.pastX = v.x 
+				v.pastY = v.y
+				v.x = love.math.random(love.window.getWidth())
+				v.y = love.math.random(love.window.getHeight())
+				v.indivTime=0
+			end
+			if (v.indivTime-2>enemy.shootTime and v.indivTime-2<enemy.shootTime+2) or (v.indivTime/2-2>enemy.shootTime and v.indivTime/2-2<enemy.shootTime+2)==0 then
+				enemBullet.spawn(v.x,v.y,math.atan2(player.y-(v.y+enemy.height/2),player.x-(v.x+enemy.width/2)))
+			end
+			v.indivTime=v.indivTime+50*dt
+		elseif v.x > player.x then 
 			v.x = v.x - v.speed * dt 
 		elseif v.x < player.x then 
 			v.x = v.x + v.speed * dt 
 		end 
-		if v.y > player.y then 
+		if v.enemType == 3 then
+		elseif v.y > player.y then 
 			v.y = v.y - v.speed * dt 
 		elseif v.y < player.y then 
 			v.y = v.y + v.speed * dt
@@ -126,35 +149,15 @@ function enemy.overlapping()
 	end 
 end 
 
-function enemy.debug()
-	for i, v in ipairs (enemy) do 
-		for j, k in ipairs(enemy) do 
-			if v ~= k then 
-				if ((v.x < k.x and k.x<v.x+enemy.width) and (v.y < k.y and k.y<v.y+enemy.height)) or 
-			((v.x < k.x+enemy.width and k.x+enemy.width<v.x+enemy.width) and (v.y < k.y+enemy.height and k.y+enemy.height<v.y+enemy.height)) or 
-			((v.x < k.x+enemy.width and k.x+enemy.width<v.x+enemy.width) and (v.y < k.y and k.y<v.y+enemy.height)) or 
-			((v.x < k.x and k.x<v.x+enemy.width) and (v.y < k.y+enemy.height and k.y+enemy.height<v.y+enemy.height)) then  
-					--v.x = k.x + enemy.width/2
-					--v.y = k.y + enemy.width/2
-					--k.x = v.x - enemy.width
-					--k.y = v.y - enemy.width
-					if k.flag then s="true" else s="false" end
-					love.graphics.print(s,10,screenHeight-50)
-					if v.flag then s="true" else s="false" end
-					love.graphics.print(s,10,screenHeight-20)
-				end
-			end 
-		end 
-	end 
-end
-
-
 function drawIndivEnemy(self)
 	if self.enemType == enemy.easy	then 
 		love.graphics.setColor(0,love.math.random(255),0)
 		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
 	elseif self.enemType == enemy.medium then
 		love.graphics.setColor(0,0,love.math.random(255))
+		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
+	elseif self.enemType == enemy.hard then
+		love.graphics.setColor(love.math.random(170,255),0,love.math.random(255))
 		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
 	end 
 end

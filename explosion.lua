@@ -5,6 +5,7 @@ explosion.timer = .75
 
 function explosion.spawn(x, y)
 	table.insert(explosion, {x=x, y=y, time = 0, indivRadius = 0})
+	boom:play()
 end
 
 function explosionUpdate(v, dt)
