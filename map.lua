@@ -9,7 +9,7 @@ map.doorHeight1 =230
 map.doorHeight2 = 360
 map.doorWidth1 = 260
 map.doorWidth2 = 430
-map.timeForNextLevel = 10
+map.timeForNextLevel = 55
 map.positionX = 0
 map.positionY = 0
 
@@ -21,12 +21,14 @@ function map.newMapTransition()
 		--map.positionY = player.y
 		flux.to(player,4,{x = screenWidth-player.width, y = player.y})
 		love.graphics.setBackgroundColor(240,110,45)
+		enemy.stopGenerate = false
 	elseif player.x > screenWidth then 
 		--player.outOfBounds = true
 		--map.positionX = 0
 		--map.positionY = player.y
 		flux.to(player,4,{x = 	0,y = player.y})
 		love.graphics.setBackgroundColor(140,110,45)
+		enemy.stopGenerate = false
 	elseif player.y + player.height < 0 then 
 		--player.outOfBounds = true
 		--map.positionX = player.x
@@ -34,7 +36,7 @@ function map.newMapTransition()
 		flux.to(player,4,{x =player.x, y = screenHeight - player.height })
 
 		love.graphics.setBackgroundColor(140,210,45)
-
+		enemy.stopGenerate = false
 	elseif player. y  > screenHeight then 
 		--player.outOfBounds = true
 		--map.positionX = player.x 
@@ -42,6 +44,7 @@ function map.newMapTransition()
 		flux.to(player,4,{x = player.x,y = 0})
 
 		love.graphics.setBackgroundColor(140,110,145)
+		enemy.stopGenerate = false
 	end 
 
 end  
