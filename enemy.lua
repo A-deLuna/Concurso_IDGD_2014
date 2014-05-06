@@ -17,6 +17,7 @@ function enemy.load()
 	enemy.spawnRepetitions = 0
 	enemy.shootTime=50
 	enemy.tpTime=100
+	enemy.stopGenerate = false
 end
 
 function enemy.spawn (x , y, enemType, speed)
@@ -33,65 +34,70 @@ function enemy.spawn (x , y, enemType, speed)
 end 
 
 function enemy.generate(dt)
-	enemy.timer = enemy.timer + dt
-	enemy.totalTime = enemy.totalTime + dt
-	
-	if enemy.timer > enemy.timerLimit then 
-		for i = 1, enemy.amount do
-			if enemy.side == 1 then 
-				if enemy.lastSide == 1 then 
-					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
-					enemy.spawn(0-enemy.width,screenHeight / 2 + 30 * enemy.spawnRepetitions, enemy.type, enemy.speed)
-				else 
-					enemy.spawnRepetitions = 0
-					enemy.spawn(0-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
-				end 
-				enemy.lastSide = 1 
-			elseif enemy.side == 2 then 
-				if enemy.lastSide == 2 then 
-					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
-					enemy.spawn(screenWidth /2 + 30 * enemy.spawnRepetitions- enemy.width, -enemy.height, enemy.type, enemy.speed)
-				else 
-					enemy.spawnRepetitions = 0
-					enemy.spawn(screenWidth /2 - enemy.width, 0-enemy.height, enemy.type, enemy.speed)
-				end 
-				enemy.lastSide = 2 
-			elseif enemy.side == 3 then 
-				if enemy.lastSide == 3 then 
-					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
-					enemy.spawn( screenWidth, screenHeight / 2  + 30 * enemy.spawnRepetitions - enemy.height, enemy.type, enemy.speed)
-				else 
-					enemy.spawnRepetitions = 0
-					enemy.spawn(screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
-				end 
-				enemy.lastSide = 3 
-			elseif enemy.side == 4 then
-				if enemy.lastSide == 4 then 
-					enemy.spawnRepetitions = enemy.spawnRepetitions + 1
-					enemy.spawn ( screenWidth /2 + 30 * enemy.spawnRepetitions,  screenHeight, enemy.type, enemy.speed)
-				else 
-					enemy.spawn ( screenWidth /2 , screenHeight, enemy.type, enemy.speed)
-					enemy.spawnRepetitions = 0
-				end 
-				enemy.lastSide = 4 
-			end
-
-			enemy.side = love.math.random(1,4)
-			
+	if not enemy.stopGenerate then 
+		enemy.timer = enemy.timer + dt
+		enemy.totalTime = enemy.totalTime + dt
 		
-		end 
-		enemy.amount = love.math.random(2,4)
-		enemy.timerLimit = love.math.random(2,4)
-		enemy.timer = 0
-		----aumento de dificultad
-		if enemy.totalTime > 25 then 
-			enemy.type = love.math.random(1,2)
-		end 
+		if enemy.timer > enemy.timerLimit then 
+			for i = 1, enemy.amount do
+				if enemy.side == 1 then 
+					if enemy.lastSide == 1 then 
+						enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+						enemy.spawn(0-enemy.width,screenHeight / 2 + 30 * enemy.spawnRepetitions, enemy.type, enemy.speed)
+					else 
+						enemy.spawnRepetitions = 0
+						enemy.spawn(0-enemy.width,screenHeight / 2, enemy.type, enemy.speed)
+					end 
+					enemy.lastSide = 1 
+				elseif enemy.side == 2 then 
+					if enemy.lastSide == 2 then 
+						enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+						enemy.spawn(screenWidth /2 + 30 * enemy.spawnRepetitions- enemy.width, -enemy.height, enemy.type, enemy.speed)
+					else 
+						enemy.spawnRepetitions = 0
+						enemy.spawn(screenWidth /2 - enemy.width, 0-enemy.height, enemy.type, enemy.speed)
+					end 
+					enemy.lastSide = 2 
+				elseif enemy.side == 3 then 
+					if enemy.lastSide == 3 then 
+						enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+						enemy.spawn( screenWidth, screenHeight / 2  + 30 * enemy.spawnRepetitions - enemy.height, enemy.type, enemy.speed)
+					else 
+						enemy.spawnRepetitions = 0
+						enemy.spawn(screenWidth, screenHeight / 2 - enemy.height, enemy.type, enemy.speed)
+					end 
+					enemy.lastSide = 3 
+				elseif enemy.side == 4 then
+					if enemy.lastSide == 4 then 
+						enemy.spawnRepetitions = enemy.spawnRepetitions + 1
+						enemy.spawn ( screenWidth /2 + 30 * enemy.spawnRepetitions,  screenHeight, enemy.type, enemy.speed)
+					else 
+						enemy.spawn ( screenWidth /2 , screenHeight, enemy.type, enemy.speed)
+						enemy.spawnRepetitions = 0
+					end 
+					enemy.lastSide = 4 
+				end
 
-		if enemy.totalTime > 50 then 
-			enemy.type = love.math.random(1,3)
-			if enemy.type==3 then enemy.amount = 1 end
-		end 
+				enemy.side = love.math.random(1,4)
+				
+			
+			end 
+			enemy.amount = love.math.random(2,4)
+			enemy.timerLimit = love.math.random(2,4)
+			enemy.timer = 0
+			----aumento de dificultad
+			if enemy.totalTime > 25 then 
+				enemy.type = love.math.random(1,2)
+			end 
+
+			if enemy.totalTime > 50 then 
+				enemy.type = love.math.random(1,3)
+				if enemy.type==3 then enemy.amount = 1 end
+			end 
+		end
+	end  
+	if enemy.totalTime >  map.timeForNextLevel then 
+		enemy.stopGenerate = true
 	end 
 end
 

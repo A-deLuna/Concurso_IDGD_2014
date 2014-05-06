@@ -6,6 +6,8 @@ require "gamepad"
 require "explosion"
 require "AnAL"
 require "enemBullet"
+require "map"
+flux = require "flux"
 
 function love.load()
 	player.load()
@@ -32,9 +34,12 @@ function love.load()
 	boom:setVolume(1.0)
 	music = love.audio.newSource("sound/music.mp3")
 	music:setVolume(0.3)
+
+	
 end
 
 function love.update(dt)
+	flux.update(dt)
 	if music:isStopped() then
 		music:play()
 	end
@@ -53,8 +58,9 @@ function love.update(dt)
 		linesAanim:update(dt)
 		linesBanim:update(dt)
 	end
-
-
+	if enemy.stopGenerate then 
+	MAP_UPDATE(dt)
+	end 
 	
 	for i, j in pairs(gpads) do
 		if(pausetimer>=.1) then
@@ -106,6 +112,9 @@ function love.draw()
 	BULLET_DRAW()
 	ENEMBULLET_DRAW()
 
+	love.graphics.print(player.x,200,200)
+	love.graphics.print(player.y,200,250)
+	
 	num = -enemy.width
 	while num < screenHeight do
 		for a, b in ipairs(enemy) do

@@ -93,9 +93,9 @@ function tween.new(obj, time, vars)
   self._ease = "quadout"
   self.vars = {}
   for k, v in pairs(vars) do
-    if type(v) ~= "number" then
-      error("bad value for key '" .. k .. "'; expected number")
-    end
+    --if type(v) ~= "number" then
+      --error("bad value for key '" .. k .. "'; expected number")
+    --end
     self.vars[k] = v
   end
   return self
@@ -105,9 +105,9 @@ end
 function tween:init()
   for k, v in pairs(self.vars) do
     local x = self.obj[k]
-    if type(x) ~= "number" then
-      error("bad value on object key '" .. k .. "'; expected number")
-    end
+    --if type(x) ~= "number" then
+      --error("bad value on object key '" .. k .. "'; expected number")
+    --end
     self.vars[k] = { start = x, diff = v - x }
   end
   self.inited = true
@@ -190,18 +190,18 @@ end
 
 
 function flux:remove(x)
-  if type(x) == "number" then
+  --if type(x) == "number" then
     -- Remove from object table, destroy table if it is empty
     local obj = self[x].obj
     self[obj][self[x]] = nil
     if not next(self[obj]) then self[obj] = nil end
     -- Remove from array
     self[x] = self[#self]
-    return table.remove(self)
-  end
+    table.remove(self)
+  --end
   for i, v in pairs(self) do
     if v == x then
-      return flux.remove(self, i)
+      flux.remove(self, i)
     end
   end
 end
