@@ -1,17 +1,20 @@
 powerup={}
+powerup.pUpTime = 50
 
 function powerup.draw()
 	for i, v in ipairs(powerup) do 
-		if v.type == 1 then 	
-			love.graphics.setColor(255,255,255)
-			love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
-		elseif v.type == 2 then
-			love.graphics.setColor(255,0,0)
-			love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
-		elseif v.type == 3 then
-			love.graphics.setColor(175,100,255)
-			love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
-		end 	
+		if (v.time>40 and math.floor(v.time) % 2 ==0) or v.time<40 then
+			if v.type == 1 then 	
+				love.graphics.setColor(255,255,255)
+				love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
+			elseif v.type == 2 then
+				love.graphics.setColor(255,0,0)
+				love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
+			elseif v.type == 3 then
+				love.graphics.setColor(175,100,255)
+				love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
+			end
+		end
 	end
 end
 
@@ -19,7 +22,7 @@ function powerup.spawn(x,y)
 	local testnum = love.math.random(5)
 
 	if testnum==3 then
-		table.insert(powerup,{x=x, y=y, type=math.random(3)})
+		table.insert(powerup,{x=x, y=y, type=math.random(3), time=0})
 	end
 end
 
@@ -36,6 +39,17 @@ function powerup.pickup()
 	end
 end
 
-function POWERUP_UPDATE()
+function powerup.removal(dt)
+	for i, v in ipairs(powerup) do
+		if v.time > powerup.pUpTime then
+			table.remove(powerup, i)
+		else
+		    v.time= v.time +5*dt
+		end
+	end
+end
+
+function POWERUP_UPDATE(dt)
 	powerup.pickup()
+	powerup.removal(dt)
 end
