@@ -112,7 +112,9 @@ function enemy.AI(dt)
 				v.indivTime=0
 			end
 			if (v.indivTime-2>enemy.shootTime and v.indivTime-2<enemy.shootTime+2) or (v.indivTime/2-2>enemy.shootTime and v.indivTime/2-2<enemy.shootTime+2)==0 then
-				enemBullet.spawn(v.x,v.y,math.atan2(player.y-(v.y+enemy.height/2),player.x-(v.x+enemy.width/2)))
+				if v.x<love.window.getWidth() and v.x > 0 and v.y < love.window.getHeight() and v.y > 0 then
+					enemBullet.spawn(v.x,v.y,math.atan2(player.y-(v.y+enemy.height/2),player.x-(v.x+enemy.width/2)))
+				end
 			end
 			v.indivTime=v.indivTime+50*dt
 		elseif v.x > player.x then 

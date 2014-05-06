@@ -14,11 +14,12 @@ map.positionX = 0
 map.positionY = 0
 
 function map.newMapTransition()
-	
+
 	if player.x + player.width < 0 then 
 		--player.outOfBounds = true
 		--map.positionX = screenWidth - player.width 
 		--map.positionY = player.y
+		table.remove(powerup)
 		flux.to(player,4,{x = screenWidth-player.width, y = player.y})
 		love.graphics.setBackgroundColor(240,110,45)
 		enemy.stopGenerate = false
@@ -26,6 +27,7 @@ function map.newMapTransition()
 		--player.outOfBounds = true
 		--map.positionX = 0
 		--map.positionY = player.y
+		table.remove(powerup)
 		flux.to(player,4,{x = 	0,y = player.y})
 		love.graphics.setBackgroundColor(140,110,45)
 		enemy.stopGenerate = false
@@ -33,6 +35,7 @@ function map.newMapTransition()
 		--player.outOfBounds = true
 		--map.positionX = player.x
 		--map.positionY = screenHeight - player.height 
+		table.remove(powerup)
 		flux.to(player,4,{x =player.x, y = screenHeight - player.height })
 
 		love.graphics.setBackgroundColor(140,210,45)
@@ -41,6 +44,7 @@ function map.newMapTransition()
 		--player.outOfBounds = true
 		--map.positionX = player.x 
 		--map.positionY = 0
+		table.remove(powerup)
 		flux.to(player,4,{x = player.x,y = 0})
 
 		love.graphics.setBackgroundColor(140,110,145)
