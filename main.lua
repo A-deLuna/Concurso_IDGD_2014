@@ -7,8 +7,9 @@ require "explosion"
 require "AnAL"
 require "enemBullet"
 require "map"
-flux = require "flux"
 
+flux = require "flux"
+Timer = require "hump.timer"
 function love.load()
 	player.load()
 	gamepad.load()
@@ -41,6 +42,7 @@ end
 
 function love.update(dt)
 	flux.update(dt)
+	Timer.update(dt)
 	if music:isStopped() then
 		music:play()
 	end
