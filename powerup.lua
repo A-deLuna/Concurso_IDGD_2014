@@ -27,10 +27,10 @@ function powerup.draw()
 end
 
 function powerup.spawn(x,y)
-	local testnum = love.math.random(1)
+	local testnum = love.math.random(50)
 
-	if testnum==1 then
-		table.insert(powerup,{x=x, y=y, type=1, time=0, rot=love.math.random(100)})
+	if testnum==3 then
+		table.insert(powerup,{x=x, y=y, type=math.random(4), time=0, rot=love.math.random(100)})
 	end
 end
 
