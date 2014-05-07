@@ -8,11 +8,12 @@ function player.load()
 	player.paranoia = 0
 	player.hp = 3
 	player.hitbox = 15 
-	player.hpIcon = love.graphics.newImage("img/lives.jpg")
+	player.hpIcon = love.graphics.newImage("img/lives.png")
 	player.invTimer = 2
 	player.inv = 2
 	player.invincible = false
 	player.bullettype=0
+	player.secbullettype = 0
 	player.ammo=0
 	player.angle= math.pi/2
 	player.scoreValue=0
@@ -128,7 +129,7 @@ function player.drawHealthPoints()
 	i = 0
 	while  i  < player.hp do 
 		love.graphics.setColor(255,255,255)
-		love.graphics.draw(player.hpIcon,i * 50 + 10, 30, 0, .2, .2, 0, 0, 0, 0)
+		love.graphics.draw(player.hpIcon,i * 50 + 10, 30, 0, 1, 1, 0, 0, 0, 0)
 		 i = i + 1
 	end
 end 

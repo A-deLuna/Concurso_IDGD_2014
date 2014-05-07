@@ -14,6 +14,7 @@ function love.load()
 	player.load()
 	gamepad.load()
 	enemy.load()
+	powerup.load()
 
 	screenWidth = love.graphics.getWidth()
 	screenHeight = love.graphics.getHeight()
