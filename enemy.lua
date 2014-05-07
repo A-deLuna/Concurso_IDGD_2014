@@ -98,7 +98,7 @@ function enemy.generate(dt)
 	end  
 	if enemy.totalTime >  map.timeForNextLevel then 
 		enemy.stopGenerate = true
-		map.newMapTransition()
+		map.update()
 	else 
 		enemy.stopGenerate = false
 	end  
