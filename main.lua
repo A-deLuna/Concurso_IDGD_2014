@@ -53,6 +53,7 @@ function love.update(dt)
 		GAMEPAD_UPDATE()
 		POWERUP_UPDATE(dt)
 		ENEMBULLET_UPDATE(dt)
+		MAP_UPDATE()
 		if player.hp < 1 then 
 			reset()
 		end
