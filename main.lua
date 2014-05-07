@@ -15,7 +15,7 @@ function love.load()
 	gamepad.load()
 	enemy.load()
 	powerup.load()
-
+	map.load()
 	screenWidth = love.graphics.getWidth()
 	screenHeight = love.graphics.getHeight()
 	
@@ -96,7 +96,7 @@ function love.keypressed(key, isrepeat)
 end
 
 function reset()
-	music:reset()
+	music:stop()
 	love.load()
 	for i, j in ipairs(enemy) do
 		enemy[i] = nil

@@ -1,20 +1,21 @@
 map  = {}
+function map.load()
+	map.type = 0 
 
-map.type = 0 
-
-map.pain = 1
-map.woods = 2
-map.boss = 3
-map.doorHeight1 = 240
-map.doorHeight2 = 360
-map.doorWidth1 = 340
-map.doorWidth2 = 460
-map.timeForNextLevel = 60
-map.positionX = 0
-map.positionY = 0
-map.imageNumber= 0
-map.background = love.graphics.newImage('img/background0.png')
-map.isUpdated = false
+	map.pain = 1
+	map.woods = 2
+	map.boss = 3
+	map.doorHeight1 = 240
+	map.doorHeight2 = 360
+	map.doorWidth1 = 340
+	map.doorWidth2 = 460
+	map.timeForNextLevel = 60
+	map.positionX = 0
+	map.positionY = 0
+	map.imageNumber= 0
+	map.background = love.graphics.newImage('img/background0.png')
+	map.isUpdated = false
+end
 function map.newMapTransition()
 --[[
 	if player.x + player.width < 0 then 

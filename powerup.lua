@@ -5,6 +5,8 @@ powerup.pUpTime = 50
 function powerup.load()
 	powerup.oneupicon = love.graphics.newImage("img/1up.png")
 	powerup.rpgicon = love.graphics.newImage("img/rpg.png")
+	powerup.revicon = love.graphics.newImage("img/revolver.png")
+	powerup.murricaicon = love.graphics.newImage("img/murrica.png")
 end
 
 function powerup.draw()
@@ -14,11 +16,9 @@ function powerup.draw()
 			if v.type == 1 then 	
 				love.graphics.draw(powerup.rpgicon,v.x, v.y,v.rot,1,1)
 			elseif v.type == 2 then
-				love.graphics.setColor(255,0,0)
-				love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
+				love.graphics.draw(powerup.murricaicon,v.x, v.y,v.rot,1,1)
 			elseif v.type == 3 then
-				love.graphics.setColor(175,100,255)
-				love.graphics.polygon("fill",v.x,v.y,v.x+15,v.y,v.x+15/2,v.y-15)
+				love.graphics.draw(powerup.revicon,v.x, v.y,v.rot,1,1)
 			elseif v.type == 4 then
 				love.graphics.draw(powerup.oneupicon,v.x, v.y,v.rot,1,1)
 			end

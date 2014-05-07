@@ -6,9 +6,9 @@ bullet.type = {{fireRate = 0.25}}
 
 function bullet.spawn(x, y, angle,type)
 	if type==2 then
-		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle - math.pi/16), dy = bullet.speed * math.sin(angle - math.pi/16), type=0, angle=angle-math.pi/16, radius = bullet.radius} )
-		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=0, angle=angle, radius = bullet.radius} )
-		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle + math.pi/16), dy = bullet.speed * math.sin(angle + math.pi/16), type=0, angle=angle+math.pi/16, radius = bullet.radius} )
+		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle - math.pi/16), dy = bullet.speed * math.sin(angle - math.pi/16), type=10, angle=angle-math.pi/16, radius = bullet.radius} )
+		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=11, angle=angle, radius = bullet.radius} )
+		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle + math.pi/16), dy = bullet.speed * math.sin(angle + math.pi/16), type=12, angle=angle+math.pi/16, radius = bullet.radius} )
 	elseif type==3 then
 		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle), dy = bullet.speed * math.sin(angle), type=type, angle=angle, radius = bullet.radius+5})
 	elseif type==0 or player.ammo>0 then
@@ -26,6 +26,15 @@ function bullet.draw()
 			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
 		elseif v.type==3 then
 			love.graphics.setColor(175,100,255)
+			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
+		elseif v.type==10 then 
+			love.graphics.setColor(0,0,255)
+			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
+		elseif v.type==11 then 
+			love.graphics.setColor(255,255,255)
+			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
+		elseif v.type==12 then
+			love.graphics.setColor(255,0,0)
 			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
 		else
 			love.graphics.setColor(225,225,225)
