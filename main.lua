@@ -31,11 +31,11 @@ function love.load()
 	pausetimer = .1
 
 	piu = love.audio.newSource("sound/piu.mp3", "static")
-	piu:setVolume(1.0)
+	piu:setVolume(1.0/50)
 	boom = love.audio.newSource("sound/boom.mp3", "static")
-	boom:setVolume(1.0)
+	boom:setVolume(1.0/50)
 	music = love.audio.newSource("sound/music.mp3")
-	music:setVolume(0.3)
+	music:setVolume(0.3/50)
 
 	
 end
@@ -98,6 +98,7 @@ function love.keypressed(key, isrepeat)
 end
 
 function reset()
+	music:reset()
 	love.load()
 	for i, j in ipairs(enemy) do
 		enemy[i] = nil
