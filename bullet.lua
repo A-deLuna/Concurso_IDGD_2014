@@ -4,6 +4,10 @@ bullet.radius = 5
 bullet.timer = 0
 bullet.type = {{fireRate = 0.25}}
 
+function bullet.load()
+	bullet.rocket = love.graphics.newImage("img/rocket.png")
+end
+
 function bullet.spawn(x, y, angle,type)
 	if type==2 then
 		table.insert(bullet, {x = x, y = y, dx = bullet.speed * math.cos(angle - math.pi/16), dy = bullet.speed * math.sin(angle - math.pi/16), type=10, angle=angle-math.pi/16, radius = bullet.radius} )
@@ -20,10 +24,10 @@ function bullet.spawn(x, y, angle,type)
 end 
 
 function bullet.draw()
-	for i,v in ipairs(bullet) do 
+	for i,v in ipairs(bullet) do
+		love.graphics.setColor(255,255,255)
 		if v.type==1 then
-			love.graphics.setColor(255,178,0)
-			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
+			love.graphics.draw(bullet.rocket,v.x, v.y,v.angle,1,1)
 		elseif v.type==3 then
 			love.graphics.setColor(175,100,255)
 			love.graphics.circle("fill", v.x , v.y , v.radius, 10)
