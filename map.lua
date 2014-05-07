@@ -12,13 +12,14 @@ map.doorWidth2 = 460
 map.timeForNextLevel = 60
 map.positionX = 0
 map.positionY = 0
-
+map.background = love.graphics.newImage('img/background0.png')
 function map.newMapTransition()
 
 	if player.x + player.width < 0 then 
 
 		table.remove(powerup)
 		flux.to(player,4,{x = screenWidth-player.width, y = player.y})
+		
 		love.graphics.setBackgroundColor(240,110,45)
 		
 		Timer.add(4, function () map.timeForNextLevel = map.timeForNextLevel + 55 end)
@@ -64,4 +65,7 @@ function MAP_UPDATE(dt)
 	--map.movePlayerTo(dt)
 	
 	
+end 
+function MAP_DRAW()
+	love.graphics.draw(map.background)
 end 

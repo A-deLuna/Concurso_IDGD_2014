@@ -60,9 +60,7 @@ function love.update(dt)
 		linesAanim:update(dt)
 		linesBanim:update(dt)
 	end
-	if enemy.stopGenerate then 
-	MAP_UPDATE(dt)
-	end 
+	
 	
 	for i, j in pairs(gpads) do
 		if(pausetimer>=.1) then
@@ -111,11 +109,12 @@ function reset()
 end
 
 function love.draw()
+	MAP_DRAW()
 	BULLET_DRAW()
 	ENEMBULLET_DRAW()
 
-	love.graphics.print(player.x,200,200)
-	love.graphics.print(player.y,200,250)
+	--love.graphics.print(player.x,200,200)
+	--love.graphics.print(player.y,200,250)
 	
 	num = -enemy.width
 	while num < screenHeight do
