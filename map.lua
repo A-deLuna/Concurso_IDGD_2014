@@ -31,7 +31,7 @@ function map.newMapTransition()
 
 		
 		
-		Timer.add(2, function () map.timeForNextLevel = map.timeForNextLevel + 55 end)
+		Timer.add(1, function () map.timeForNextLevel = map.timeForNextLevel + 55 end)
 		enemy.stopGenerate = false
 	end 
 	
@@ -93,7 +93,7 @@ function MAP_DRAW()
 	--love.graphics.draw(map.spikes,0,screenHeight/2-120/2,.5* math.pi) -- izquierda
 	--love.graphics.draw(map.spikes,screenWidth,screenHeight/2-160/2,1.5*math.pi)--derecha
 	if not enemy.stopGenerate then 
-		love.graphics.draw(map.spikes,screenWidth/2-64/2,15)--arriba
+		love.graphics.draw(map.spikes,screenWidth/2-64/2,30)--arriba
 		map.newMapTransition()
 	end 
 	if map.imageNumber >=1 then 

@@ -30,6 +30,15 @@ function enemy.load()
 	enemy.ghostALeft = newAnimation(enemy.ghostL,30,40,.3,0)
 	enemy.ghostR = love.graphics.newImage("img/ghost-right.png")
 	enemy.ghostARight = newAnimation(enemy.ghostR,30,40,.3,0)
+
+	enemy.indianF = love.graphics.newImage("img/indian/front.png")
+	enemy.indianAFront = newAnimation(enemy.indianF,30,40,.3,0)
+	enemy.indianB = love.graphics.newImage("img/indian/back.png")
+	enemy.indianABack = newAnimation(enemy.indianB,30,40,.3,0)
+	enemy.indianL = love.graphics.newImage("img/indian/left.png")
+	enemy.indianALeft = newAnimation(enemy.indianL,30,40,.3,0)
+	enemy.indianR = love.graphics.newImage("img/indian/right.png")
+	enemy.indianARight = newAnimation(enemy.indianR,30,40,.3,0)
 end
 
 function enemy.spawn (x , y, enemType, speed)
@@ -205,8 +214,35 @@ function drawIndivEnemy(self)
 			end
 		end
 	elseif self.enemType == enemy.medium then
-		love.graphics.setColor(0,0,love.math.random(255))
-		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
+		if self.y > player.y then
+			if self.x>player.x then
+				if self.x-player.x > self.y-player.y then
+					enemy.indianALeft:draw(self.x,self.y)
+				else
+				    enemy.indianABack:draw(self.x,self.y)
+				end
+			else
+			   	if player.x-self.x > self.y-player.y then
+					enemy.indianARight:draw(self.x,self.y)
+				else
+				    enemy.indianABack:draw(self.x,self.y)
+				end
+			end
+		else
+		    if self.x>player.x then
+				if self.x-player.x > player.y-self.y then
+					enemy.indianALeft:draw(self.x,self.y)
+				else
+				    enemy.indianAFront:draw(self.x,self.y)
+				end
+			else
+			   	if player.x-self.x > player.y-self.y then
+					enemy.indianARight:draw(self.x,self.y)
+				else
+				    enemy.indianAFront:draw(self.x,self.y)
+				end
+			end
+		end
 	elseif self.enemType == enemy.hard then
 		love.graphics.draw(enemy.alien,self.x,self.y)
 		enemy.teleportani:draw(self.pastX, self.pastY)
@@ -223,6 +259,11 @@ function ENEMY_UPDATE(dt)
 	enemy.ghostALeft:update(dt)
 	enemy.ghostABack:update(dt)
 	enemy.ghostAFront:update(dt)
+
+	enemy.indianARight:update(dt)
+	enemy.indianALeft:update(dt)
+	enemy.indianABack:update(dt)
+	enemy.indianAFront:update(dt)
 end 
 
 function ENEMY_DRAW()
