@@ -131,7 +131,7 @@ function player.drawHealthPoints()
 end 
 
 function player.score()
-	love.graphics.setColor(0,176,0)
+	love.graphics.setColor(255,255,255)
 	love.graphics.print("Score: ", love.graphics.getWidth()-200, 10, 0, 1, 1, 0, 0, 0, 0)
 	love.graphics.print(player.scoreValue, love.graphics.getWidth()-150,10,0,1,1,0,0,0,0)
 end
