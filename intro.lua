@@ -29,7 +29,7 @@ end
 function intro:mousepressed(x, y, button)
 	
 
-end 
+end 1
 
 function intro:joystickpressed()
 

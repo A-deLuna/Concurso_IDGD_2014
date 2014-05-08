@@ -23,6 +23,7 @@ function gameOver:draw()
 		love.graphics.print(lines,100, n * 50)
 		n = n + 1 
 	end 
+	io.close()
 	love.graphics.print("click izquierdo para continuar", 100, 200)
 	Highscores.print() 
 end 
