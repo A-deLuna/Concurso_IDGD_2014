@@ -47,7 +47,8 @@ end
 if mitad:getCurrentFrame()==mitad:getSize() then
 final:draw(200,150)
 end
-love.graphics.print("Press Enter/Click anywhere on the screen",280,500)
+love.graphics.setFont(love.graphics.newFont(15))
+love.graphics.print("Press Enter/Click anywhere on the screen",230,500)
 
 end 
 
@@ -66,3 +67,7 @@ function menu:mousepressed(x, y, button)
 	end  
 end 
 
+function menu:joystickpressed()
+	music:stop()
+	Gamestate.switch(game)
+end

@@ -3,8 +3,6 @@ gameOver = {}
 
 function gameOver:init()
 	gameOverIdent=love.audio.newSource("sound/gameOverIdent.mp3")
-	love.graphics.setBackgroundColor(255,255,0)
-
 end
 
 function gameOver:enter()
@@ -20,8 +18,10 @@ end
 
 function gameOver:draw()
 	local font = love.graphics.newFont(40)
+	love.graphics.clear()
+	love.graphics.setBackgroundColor(0,0,0)
 	love.graphics.setFont(font)
-	love.graphics.setColor(230,0,255)
+	love.graphics.setColor(255,255,255)
 
 	--local n = 1
 	--for lines in io.lines("Highscores.txt") do 
@@ -32,9 +32,9 @@ function gameOver:draw()
 	local f = io.open("Highscores.txt", "r")
 	local l = f:read("*all")
 	l = string.gsub(l, " ", "\n")
-	love.graphics.print(l, 300, 300)
+	love.graphics.print(l, 330, 200)
 	io.close(f)
-	love.graphics.print("Puntajes mas altos", 100, 200)
+	love.graphics.print("Puntajes mas altos", 200, 100)
 
 	Highscores.print() 
 end 
