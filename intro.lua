@@ -3,10 +3,13 @@ intro.framecount=0
 intro.cheve=nil
 
 function intro.load()
+	introIdent=love.audio.newSource("sound/introIdent.mp3")
+	introIdent:setVolume(1)
 	intro.cheve=love.graphics.newImage("img/intro/Sequence 01100.jpg")
 end
 
 function intro.update(dt)
+	
 
 end
 
@@ -23,7 +26,8 @@ function intro:enter()
 end
 
 function intro:update(dt)
-	if intro.framecount>590 then
+	introIdent:play()
+	if intro.framecount>1260 then
 		intro.cheve=nil
 		Gamestate.switch(menu)
 	else

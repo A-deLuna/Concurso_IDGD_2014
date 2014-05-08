@@ -22,8 +22,8 @@ function love.load()
     Gamestate.switch(intro)
 	gamepad.load()
 
-	music = love.audio.newSource("sound/music.mp3")
-	music:setVolume(0.3/50)
+	stageMusic = love.audio.newSource("sound/stage.mp3")
+	stageMusic:setVolume(0.4)
 
 	
 end

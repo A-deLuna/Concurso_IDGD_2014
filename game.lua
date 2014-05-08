@@ -22,9 +22,9 @@ function game:init()
 	pausetimer = .1
 
 	piu = love.audio.newSource("sound/piu.mp3", "static")
-	piu:setVolume(1.0/50)
+	piu:setVolume(1.0)
 	boom = love.audio.newSource("sound/boom.mp3", "static")
-	boom:setVolume(1.0/50)
+	boom:setVolume(1.0)
 	
 end
 
@@ -48,8 +48,8 @@ function game:enter()
 end
 
 function game:update(dt)
-	if music:isStopped() then
-		music:play()
+	if stageMusic:isStopped() then
+		stageMusic:play()
 	end
 	if(not pause) then
 		PLAYER_UPDATE(dt)
@@ -60,6 +60,7 @@ function game:update(dt)
 		ENEMBULLET_UPDATE(dt)
 		MAP_UPDATE()
 		if player.hp < 1 then 
+			stageMusic:stop()
 			Gamestate.switch(gameOver)
 		end
 	else
@@ -148,7 +149,7 @@ function game:joystickpressed()
 
 end
 function reset()
-	music:stop()
+	stageMusic:stop()
 	
 	for i, j in ipairs(enemy) do
 		enemy[i] = nil
@@ -159,5 +160,5 @@ function reset()
 	for i, j in ipairs(bullet) do
 		bullet[i] = nil
 	end
-	music:stop()
+	stageMusic:stop()
 end 
