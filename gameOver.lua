@@ -17,6 +17,8 @@ function gameOver:update(dt)
 end
 
 function gameOver:draw()
+	local font = love.graphics.newFont(40)
+	love.graphics.setFont(font)
 	love.graphics.setColor(230,0,255)
 		
 	--local n = 1
@@ -30,7 +32,7 @@ function gameOver:draw()
 	l = string.gsub(l, " ", "\n")
 	love.graphics.print(l, 300, 300)
 	io.close(f)
-	love.graphics.print("click izquierdo para continuar", 100, 200)
+	love.graphics.print("Puntajes mas altos", 100, 200)
 	Highscores.print() 
 end 
 
