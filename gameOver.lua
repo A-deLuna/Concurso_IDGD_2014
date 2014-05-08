@@ -2,11 +2,13 @@ gameOver = {}
 
 
 function gameOver:init()
+	gameOverIdent=love.audio.newSource("sound/gameOverIdent.mp3")
 	love.graphics.setBackgroundColor(255,255,0)
 
 end
 
 function gameOver:enter()
+	gameOverIdent:play()
 	Highscores.check()
 
 end
@@ -19,7 +21,7 @@ end
 function gameOver:draw()
 	love.graphics.setColor(230,0,255)
 	local n = 1
-	for lines in io.lines("Concurso_IDGD_2014/Highscores.txt") do 
+	for lines in io.lines("Highscores.txt") do 
 		love.graphics.print(lines,100, n * 50)
 		n = n + 1 
 	end 

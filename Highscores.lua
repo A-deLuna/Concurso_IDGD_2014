@@ -2,7 +2,7 @@ Highscores = {}
 
 function Highscores.check()
 
-	local f = io.open("Concurso_IDGD_2014/Highscores.txt","r")
+	local f = io.open("Highscores.txt","r")
 	--love.graphics.print(hs, 500, 300)
 	n1,n2,n3,n4,n5 = f:read("*number","*number","*number","*number","*number")
 		
@@ -30,7 +30,7 @@ function Highscores.check()
 		
 	
 	io.close(f)
-	k = io.open("Concurso_IDGD_2014/Highscores.txt", "w")
+	k = io.open("Highscores.txt", "w")
 	k:write(n1," ",n2," ",n3," ",n4," ",n5)
 	io.flush()
 	io.close(k)
