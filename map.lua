@@ -9,7 +9,7 @@ function map.load()
 	map.doorHeight2 = 360
 	map.doorWidth1 = 340
 	map.doorWidth2 = 460
-	map.timeForNextLevel = 10
+	map.timeForNextLevel = 60
 	map.positionX = 0
 	map.positionY = 0
 	map.imageNumber= 0
