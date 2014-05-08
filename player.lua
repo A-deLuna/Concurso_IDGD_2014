@@ -76,14 +76,17 @@ end
 
 function player.screenBound()
 	if (not enemy.stopGenerate) then 	
-		if  player.x < 0 then
-			player.x = 0
-		elseif player.x  + player.width > screenWidth then 
-			player.x = screenWidth - player.width
-		elseif player.y  < 0 then 
-			player.y = 0
-		elseif player.y + player.height > screenHeight then 
-			player.y = screenHeight - player.height
+		if  player.x < 90 then
+			player.x = 90
+		end
+		if player.x  + player.width > screenWidth-90 then 
+			player.x = screenWidth - player.width-90
+		end 
+		if player.y  < 90 then 
+			player.y = 90
+		end 
+		if player.y + player.height > screenHeight-90 then 
+			player.y = screenHeight - player.height-90
 		end 
 	
 	end 
@@ -128,7 +131,7 @@ function player.drawHealthPoints()
 end 
 
 function player.score()
-	love.graphics.setColor(0,176,0)
+	love.graphics.setColor(255,255,255)
 	love.graphics.print("Score: ", love.graphics.getWidth()-200, 10, 0, 1, 1, 0, 0, 0, 0)
 	love.graphics.print(player.scoreValue, love.graphics.getWidth()-150,10,0,1,1,0,0,0,0)
 end

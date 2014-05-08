@@ -18,11 +18,18 @@ end
 
 function gameOver:draw()
 	love.graphics.setColor(230,0,255)
-	local n = 1
-	for lines in io.lines("Concurso_IDGD_2014/Highscores.txt") do 
-		love.graphics.print(lines,100, n * 50)
-		n = n + 1 
-	end 
+		
+	--local n = 1
+	--for lines in io.lines("Highscores.txt") do 
+	--	love.graphics.print(lines,100, n * 50)
+	--	n = n + 1 
+	--end 
+
+	local f = io.open("Highscores.txt", "r")
+	local l = f:read("*all")
+	l = string.gsub(l, " ", "\n")
+	love.graphics.print(l, 300, 300)
+	io.close(f)
 	love.graphics.print("click izquierdo para continuar", 100, 200)
 	Highscores.print() 
 end 
