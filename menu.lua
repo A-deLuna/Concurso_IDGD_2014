@@ -6,6 +6,7 @@ function menu:init()
 end
 
 function menu:enter()
+	love.graphics.setBackgroundColor(255,255,255)
 
 
 end

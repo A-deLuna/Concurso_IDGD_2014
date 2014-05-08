@@ -20,6 +20,7 @@ function enemy.load()
 	enemy.stopGenerate = false
 	enemy.alien=love.graphics.newImage("img/alien.png")
 	enemy.teleportfx=love.graphics.newImage("img/teleport.png")
+
 	enemy.teleportani=newAnimation(enemy.teleportfx,30,40,.5,0)
 end
 
