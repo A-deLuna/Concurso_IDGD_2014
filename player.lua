@@ -1,9 +1,9 @@
 player = {}
 function player.load()
-	player.x = 500
-	player.y = 500
-	player.height = 30
-	player.width = 30
+	player.x = 376
+	player.y = 269
+	player.height = 62
+	player.width = 48
 	player.speed = 200
 	player.paranoia = 0
 	player.hp = 3
@@ -18,13 +18,26 @@ function player.load()
 	player.angle= math.pi/2
 	player.scoreValue=0
 	player.outOfBounds = false
+	love.graphics.setColor(255,255,255)
+	x=1
+	character={}
+	CFront=love.graphics.newImage("img/Cleanington-front.png")
+character[1]=newAnimation(CFront, 48,62,0.1,0)
+	CBack=love.graphics.newImage("img/cleanington-back.png")
+character[0]=newAnimation(CBack, 48,62,0.1,0)
+	CLeft=love.graphics.newImage("img/cleanington-left.png")
+character[2]=newAnimation(CLeft, 48,62,0.1,0)
+	CRight=love.graphics.newImage("img/cleanington-right.png")
+	character[3]=newAnimation(CRight, 48,62,0.1,0)
+	
 end
 
 function player.draw()
 	love.graphics.setFont(love.graphics.newFont(20))
 	if player.invTimer>=player.inv or (player.invTimer*100-((player.invTimer*100)%1)) % 2 == 0 then
-		love.graphics.setColor(255,0,0)
-		love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+		love.graphics.setColor(255,255,255)
+		--love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
+		character[x]:draw(player.x,player.y)
 	end
 end	
 
@@ -32,9 +45,15 @@ function player.movement(dt)
 	if love.keyboard.isDown("w") then 
 		player.y = player.y - player.speed * dt
 		angley=3*math.pi/4
+		character[0]:draw(player.x,player.y)
+		x=0
+		character[x]:update(dt)
 	elseif love.keyboard.isDown("s") then 
 		player.y = player.y + player.speed * dt
 		angley=math.pi/2
+		character[1]:draw(player.x,player.y)
+		x=1
+		character[x]:update(dt)
 	else
 	  	player.y = player.y + (player.speed*gamepad.ly) * dt
 	  	angley=gamepad.ly
@@ -42,14 +61,21 @@ function player.movement(dt)
 	if love.keyboard.isDown("a") then
 		player.x = player.x - player.speed * dt 
 		anglex=math.pi
+		character[2]:draw(player.x,player.y)
+		x=2
+		character[x]:update(dt)
 	elseif love.keyboard.isDown("d") then
 		player.x = player.x + player.speed * dt 
 		anglex=0
+		character[3]:draw(player.x,player.y)
+		x=3
+		character[x]:update(dt)
 	else
 		player.x = player.x + (player.speed*gamepad.lx) * dt
 		anglex=gamepad.lx
 	end
 	player.angle=math.tan(angley,anglex)
+	
 end
 
 function player.angleUpdate()

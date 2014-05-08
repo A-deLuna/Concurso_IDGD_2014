@@ -3,7 +3,7 @@ Highscores = {}
 function Highscores.check()
 
 	local f = io.open("Highscores.txt","r")
-	--love.graphics.print(hs, 500, 300)
+	--(hs, 500, 300)
 	n1,n2,n3,n4,n5 = f:read("*number","*number","*number","*number","*number")
 		
 	if player.scoreValue > 	n1 then 
