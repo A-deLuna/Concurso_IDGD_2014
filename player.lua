@@ -121,7 +121,7 @@ function player.enemyColission(dt)
 	end
 end 
 function player.drawHealthPoints()
-	love.graphics.setColor(0,176,0)
+	love.graphics.setColor(255,255,255)
 	love.graphics.print( "Lives:",10, 10, 0, 1, 1, 0, 0, 0, 0)
 	i = 0
 	while  i  < player.hp do 

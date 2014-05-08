@@ -1,44 +1,68 @@
 menu = {}
 
 function menu:init()
-	love.graphics.setBackgroundColor(255,255,255)
+	music = love.audio.newSource("sound/music.mp3")
+	music:setVolume(0.3)
+	tituloComienzo=love.graphics.newImage("img/littlegirl.png")
+	comienzo=newAnimation(tituloComienzo, 400,200,0.4,0)
+	comienzo:setMode("once")
+	tituloMedio=love.graphics.newImage("img/PRESIDENT.png")
+	mitad=newAnimation(tituloMedio, 400,200,0.1,0)
+	mitad:setMode("once")
+	love.graphics.setColor(255,255,255)
+	tituloFinal=love.graphics.newImage("img/title.png")
+	final=newAnimation(tituloFinal, 400,200,0.2,0)
 
 end
 
 function menu:enter()
-	love.graphics.setBackgroundColor(255,255,255)
+
 
 
 end
 
 function menu:update(dt)
+comienzo:update(dt)
+if comienzo:getCurrentFrame()==comienzo:getSize() then
+mitad:update(dt)
+end
+if mitad:getCurrentFrame()==mitad:getSize() then
+final:update(dt)
+	if music:isStopped() then
+		music:play()
+	end
+end
 
-
+gamepad.update()
+if gamepad.isDown[2] then
+	Gamestate.switch(game)
+end
 end
 
 function menu:draw()
-	love.graphics.setColor(230,0,255)
-	love.graphics.rectangle("fill", 350, 250, 100, 100)
+comienzo:draw(200,150)
+if comienzo:getCurrentFrame()==comienzo:getSize() then
+mitad:draw(200,150)
+end
+if mitad:getCurrentFrame()==mitad:getSize() then
+final:draw(200,150)
+end
+love.graphics.print("Press Enter/Click anywhere on the screen",280,500)
 
 end 
 
 function menu:keypressed()
-
+if key == "enter" then
+		music:stop()
+		Gamestate.switch(game)
+	end
 
 end 
 
 function menu:mousepressed(x, y, button)
 	if button == "l" then 
-		if x >= 350 and x <= 450 then 
-			if y >= 250 and y <= 350 then 
+				music:stop()
 				Gamestate.switch(game)
-
-			end 
-		end
 	end  
 end 
 
-function menu:joystickpressed()
-
-
-end 
