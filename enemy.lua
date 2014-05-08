@@ -20,8 +20,16 @@ function enemy.load()
 	enemy.stopGenerate = false
 	enemy.alien=love.graphics.newImage("img/alien.png")
 	enemy.teleportfx=love.graphics.newImage("img/teleport.png")
-
 	enemy.teleportani=newAnimation(enemy.teleportfx,30,40,.5,0)
+
+	enemy.ghostF = love.graphics.newImage("img/ghost-front.png")
+	enemy.ghostAFront = newAnimation(enemy.ghostF,30,40,.3,0)
+	enemy.ghostB = love.graphics.newImage("img/ghost-back.png")
+	enemy.ghostABack = newAnimation(enemy.ghostB,30,40,.3,0)
+	enemy.ghostL = love.graphics.newImage("img/ghost-left.png")
+	enemy.ghostALeft = newAnimation(enemy.ghostL,30,40,.3,0)
+	enemy.ghostR = love.graphics.newImage("img/ghost-right.png")
+	enemy.ghostARight = newAnimation(enemy.ghostR,30,40,.3,0)
 end
 
 function enemy.spawn (x , y, enemType, speed)
@@ -167,8 +175,35 @@ end
 function drawIndivEnemy(self)
 	love.graphics.setColor(255,255,255)
 	if self.enemType == enemy.easy	then 
-		love.graphics.setColor(0,love.math.random(255),0)
-		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
+		if self.y > player.y then
+			if self.x>player.x then
+				if self.x-player.x > self.y-player.y then
+					enemy.ghostALeft:draw(self.x,self.y)
+				else
+				    enemy.ghostABack:draw(self.x,self.y)
+				end
+			else
+			   	if player.x-self.x > self.y-player.y then
+					enemy.ghostARight:draw(self.x,self.y)
+				else
+				    enemy.ghostABack:draw(self.x,self.y)
+				end
+			end
+		else
+		    if self.x>player.x then
+				if self.x-player.x > player.y-self.y then
+					enemy.ghostALeft:draw(self.x,self.y)
+				else
+				    enemy.ghostAFront:draw(self.x,self.y)
+				end
+			else
+			   	if player.x-self.x > player.y-self.y then
+					enemy.ghostARight:draw(self.x,self.y)
+				else
+				    enemy.ghostAFront:draw(self.x,self.y)
+				end
+			end
+		end
 	elseif self.enemType == enemy.medium then
 		love.graphics.setColor(0,0,love.math.random(255))
 		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
@@ -183,6 +218,11 @@ function ENEMY_UPDATE(dt)
 	enemy.AI(dt)
 	enemy.overlapping()
 	enemy.teleportani:update(dt)
+
+	enemy.ghostARight:update(dt)
+	enemy.ghostALeft:update(dt)
+	enemy.ghostABack:update(dt)
+	enemy.ghostAFront:update(dt)
 end 
 
 function ENEMY_DRAW()
