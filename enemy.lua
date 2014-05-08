@@ -1,6 +1,6 @@
 enemy = {}
 function enemy.load()
-	enemy.height = 30
+	enemy.height = 40
 	enemy.width = 30
 	enemy.speed = 100
 	enemy.timer = 0
@@ -18,6 +18,8 @@ function enemy.load()
 	enemy.shootTime=50
 	enemy.tpTime=100
 	enemy.stopGenerate = false
+	enemy.alien=love.graphics.newImage("img/alien.png")
+	enemy.teleportfx=love.graphics.newImage("img/teleport.png")
 end
 
 function enemy.spawn (x , y, enemType, speed)
@@ -161,6 +163,7 @@ function enemy.overlapping()
 end 
 
 function drawIndivEnemy(self)
+	love.graphics.setColor(255,255,255)
 	if self.enemType == enemy.easy	then 
 		love.graphics.setColor(0,love.math.random(255),0)
 		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
@@ -168,8 +171,8 @@ function drawIndivEnemy(self)
 		love.graphics.setColor(0,0,love.math.random(255))
 		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
 	elseif self.enemType == enemy.hard then
-		love.graphics.setColor(love.math.random(170,255),0,love.math.random(255))
-		love.graphics.rectangle("fill",self.x,self.y,enemy.width,enemy.height)
+		love.graphics.draw(enemy.alien,self.x,self.y)
+	
 	end 
 end
 

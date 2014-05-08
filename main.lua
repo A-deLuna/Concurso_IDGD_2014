@@ -15,9 +15,11 @@ Gamestate = require "hump.gamestate"
 require "game"
 require "menu"
 require "gameOver"
+require "intro"
+
 function love.load()
 	Gamestate.registerEvents()
-    Gamestate.switch(menu)
+    Gamestate.switch(intro)
 	gamepad.load()
 
 	music = love.audio.newSource("sound/music.mp3")

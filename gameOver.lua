@@ -19,11 +19,10 @@ end
 function gameOver:draw()
 	love.graphics.setColor(230,0,255)
 	local n = 1
-	for lines in io.lines("Highscores.txt") do 
+	for lines in io.lines("Concurso_IDGD_2014/Highscores.txt") do 
 		love.graphics.print(lines,100, n * 50)
 		n = n + 1 
 	end 
-	io.close()
 	love.graphics.print("click izquierdo para continuar", 100, 200)
 	Highscores.print() 
 end 
@@ -35,7 +34,7 @@ end
 
 function gameOver:mousepressed(x, y, button)
 	if button == "l" then 
-		Gamestate.switch(game)
+		Gamestate.switch(menu)
 
 	end  
 end 
