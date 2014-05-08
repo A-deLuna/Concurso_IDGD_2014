@@ -85,16 +85,7 @@ function player.screenBound()
 		elseif player.y + player.height > screenHeight then 
 			player.y = screenHeight - player.height
 		end 
-	else
-		if  player.x < 0 then
-			player.x = 0
-		elseif player.x  + player.width > screenWidth then 
-			player.x = screenWidth - player.width
-		elseif (player.y <0 and (player.x  < map.doorWidth1 or player.x > map.doorWidth2)) then
-			player.y = 0
-		elseif player.y + player.height > screenHeight then 
-			player.y = screenHeight - player.height
-		end 
+	
 	end 
 end
 
