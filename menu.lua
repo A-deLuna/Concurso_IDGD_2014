@@ -52,17 +52,16 @@ love.graphics.print("Press Enter/Click anywhere on the screen",280,500)
 end 
 
 function menu:keypressed()
-if key == "enter" then
+
 		music:stop()
 		Gamestate.switch(game)
-	end
+
 
 end 
 
 function menu:mousepressed(x, y, button)
-	if button == "l" then 
+
 				music:stop()
 				Gamestate.switch(game)
-	end  
-end 
 
+end
