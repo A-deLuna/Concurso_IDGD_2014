@@ -21,6 +21,7 @@ function player.load()
 end
 
 function player.draw()
+	love.graphics.setFont(love.graphics.newFont(20))
 	if player.invTimer>=player.inv or (player.invTimer*100-((player.invTimer*100)%1)) % 2 == 0 then
 		love.graphics.setColor(255,0,0)
 		love.graphics.rectangle("fill", player.x, player.y, player.width, player.height)
@@ -133,7 +134,7 @@ end
 function player.score()
 	love.graphics.setColor(255,255,255)
 	love.graphics.print("Score: ", love.graphics.getWidth()-200, 10, 0, 1, 1, 0, 0, 0, 0)
-	love.graphics.print(player.scoreValue, love.graphics.getWidth()-150,10,0,1,1,0,0,0,0)
+	love.graphics.print(player.scoreValue, love.graphics.getWidth()-130,10,0,1,1,0,0,0,0)
 end
 function PLAYER_DRAW()
 	player.draw()

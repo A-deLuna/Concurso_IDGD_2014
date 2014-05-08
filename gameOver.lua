@@ -37,18 +37,13 @@ function gameOver:draw()
 end 
 
 function gameOver:keypressed()
-
-
+	Gamestate.switch(menu)
 end 
 
 function gameOver:mousepressed(x, y, button)
-	if button == "l" then 
-		Gamestate.switch(menu)
-
-	end  
+	Gamestate.switch(menu)
 end 
 
 function gameOver:joystickpressed()
-
-
+	Gamestate.switch(menu)
 end 
