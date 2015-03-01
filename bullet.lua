@@ -70,7 +70,7 @@ function bullet.collition()
 				-- AQUI ESTAN LOS TIPOS DE BALAS QUE SE VAN A LLAMAR
 				if q.type==1 then
 					explosion.spawn(q.x, q.y)
-					
+
 				end 
 
 				if q.type~=3 then

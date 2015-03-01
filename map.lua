@@ -25,22 +25,22 @@ function map.newMapTransition()
 
 		table.remove(powerup)
 		map.loadMap()
-		
-		player.y = screenHeight + player.height - 90
-		
 
-		
-		
+		player.y = screenHeight + player.height - 90
+
+
+
+
 		Timer.add(1, function () map.timeForNextLevel = map.timeForNextLevel + 55 end)
 		enemy.stopGenerate = false
 	end 
-	
+
 
 end  
 
 function map.update()
-	
-	
+
+
 		map.newMapTransition()
 	if not map.isUpdated then 
 		map.loadMap()
@@ -85,7 +85,7 @@ function map.playerBounds()
 		end 
 	end 
 end 
-	
+
 
 function MAP_DRAW()
 	love.graphics.draw(map.background)
@@ -102,5 +102,4 @@ function MAP_DRAW()
 	end 
 
 end 
-
 

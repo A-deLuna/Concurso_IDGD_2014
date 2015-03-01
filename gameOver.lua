@@ -39,8 +39,10 @@ function gameOver:draw()
 	Highscores.print() 
 end 
 
-function gameOver:keypressed()
+function gameOver:keypressed(key)
+	if key == "t" then 	
 	Gamestate.switch(menu)
+	end 
 end 
 
 function gameOver:mousepressed(x, y, button)
